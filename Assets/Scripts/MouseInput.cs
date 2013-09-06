@@ -17,7 +17,7 @@ public class MouseInput: MonoBehaviour {
 			Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			
 			if ( Physics.Raycast(selectRay ,out rayHit ) ) {
-				if( rayHit.transform.GetComponent<Clickable> ) {
+				if( rayHit.transform.GetComponent<Clickable>() != null ) {
 					//rayHit.transform.clicked();
 				}
 			}

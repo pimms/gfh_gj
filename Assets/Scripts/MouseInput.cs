@@ -12,21 +12,22 @@ public class MouseInput: MonoBehaviour {
 	void checkMouseClick() {
 		if ( Input.GetMouseButtonDown(0) ){
 			
-			//Vector3 selectRay = transform.TransformDirection(cam.ViewportPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0)));
 			RaycastHit rayHit = new RaycastHit();
 			Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 			
 			if ( Physics.Raycast(selectRay ,out rayHit ) ) {
-				if( rayHit.transform.GetComponent<Clickable> ) {
-					//rayHit.transform.clicked();
+				Clickable clicked = rayHit.transform.GetComponent<Clickable>() as Clickable;
+				if ( clicked != null ) { 
+					rayHit.transform.Translate(Vector3.forward);
+					//clicked.OnMouseClick(0,0);
 				}
 			}
-			
 		}
 	}
 		
 	
 	// Update is called once per frame
+	
 	void Update () {
 		checkMouseClick();
 	}

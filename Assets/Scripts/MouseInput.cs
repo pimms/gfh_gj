@@ -9,19 +9,24 @@ public class MouseInput: MonoBehaviour {
 	
 	}
 	
-	void checkMouseClick() {
-		if ( Input.GetMouseButtonDown(0) ){
-			
-			RaycastHit rayHit = new RaycastHit();
-			Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-			
-			if ( Physics.Raycast(selectRay ,out rayHit ) ) {
-				Clickable clicked = rayHit.transform.GetComponent<Clickable>() as Clickable;
-				if ( clicked != null ) { 
-					rayHit.transform.Translate(Vector3.forward);
-					//clicked.OnMouseClick(0,0);
-				}
+	void checkMouseInput() {
+		RaycastHit rayHit = new RaycastHit();
+		Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+		if ( Physics.Raycast(selectRay ,out rayHit ) ) {
+			Clickable objectUnderMouse = rayHit.transform.GetComponent<Clickable>() as Clickable;
+			if ( objectUnderMouse != null ) {
+				//objectUnderMouse.
+				checkMouseClick( objectUnderMouse );
 			}
+		}
+		
+	}
+	
+	void checkMouseClick( Clickable clicked ) {
+		if ( Input.GetMouseButtonDown(0) ) {
+			//clicked.OnMouseClick(0, );
+		} else if (Input.GetMouseButtonDown(1)) {
+			//clicked.OnMouseClick(1, );
 		}
 	}
 		
@@ -29,6 +34,6 @@ public class MouseInput: MonoBehaviour {
 	// Update is called once per frame
 	
 	void Update () {
-		checkMouseClick();
+		checkMouseInput();
 	}
 }

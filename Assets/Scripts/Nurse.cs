@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Nurse : MonoBehaviour {
+public class Nurse : Clickable {
 
 	// Use this for initialization
 	void Start () {
@@ -11,5 +11,9 @@ public class Nurse : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void OnMouseClick(int mouseButton) {
+
 	}
 }

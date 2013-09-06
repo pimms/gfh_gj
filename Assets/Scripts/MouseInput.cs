@@ -16,7 +16,7 @@ public class MouseInput: MonoBehaviour {
 		if ( Physics.Raycast(selectRay ,out rayHit ) ) {
 			Clickable objectUnderMouse = rayHit.transform.GetComponent<Clickable>() as Clickable;
 			if ( objectUnderMouse != null ) {
-				//objectUnderMouse.
+				objectUnderMouse.OnMouseHover();
 				checkMouseClick( objectUnderMouse );
 			}
 		}

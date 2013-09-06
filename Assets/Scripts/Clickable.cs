@@ -18,10 +18,9 @@ public class Clickable : MonoBehaviour {
 	}
 	
 	/* Called every tick while the mouse hovers over the object, used for highlights
-	 * 
 	 */
 	public virtual void OnMouseHover() {
-		
+
 	}
 
 	/* Can the clickable object act upon other objects?

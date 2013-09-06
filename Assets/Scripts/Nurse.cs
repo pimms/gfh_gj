@@ -18,7 +18,6 @@ public class Nurse : Clickable {
 	}
 
 	public bool IsActor() {
-
 		return true;
 	}
 }

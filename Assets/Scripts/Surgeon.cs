@@ -10,7 +10,7 @@ public class Surgeon : Clickable {
 	
 	}
 
-	public void OnMouseClick(int mouseButton) {
+	public void OnMouseClick(int mouseButton, InputQueue queue) {
 
 	}
 }

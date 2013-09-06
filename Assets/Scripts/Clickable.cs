@@ -16,6 +16,13 @@ public class Clickable : MonoBehaviour {
 	public virtual void OnMouseClick(int mouseButton, InputOrder queue) {
 		Debug.Log("OnMouseClick() is not overriden in subclass: " + this.ToString());
 	}
+	
+	/* Called every tick while the mouse hovers over the object, used for highlights
+	 * 
+	 */
+	public virtual void OnMouseHover() {
+		
+	}
 
 	/* Can the clickable object act upon other objects?
 	 */

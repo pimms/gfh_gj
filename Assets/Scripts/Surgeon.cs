@@ -13,4 +13,8 @@ public class Surgeon : Clickable {
 	public void OnMouseClick(int mouseButton, InputOrder queue) {
 
 	}
+
+	public bool IsActor() {
+		return true;
+	}
 }

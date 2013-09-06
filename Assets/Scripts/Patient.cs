@@ -16,4 +16,8 @@ public class Patient : Clickable {
 	public void OnMouseClick(int mouseButton, InputOrder queue) {
 
 	}
+
+	public bool IsSubject() {
+		return true;
+	}
 }

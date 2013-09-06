@@ -16,4 +16,22 @@ public class Clickable : MonoBehaviour {
 	public virtual void OnMouseClick(int mouseButton, InputOrder queue) {
 		Debug.Log("OnMouseClick() is not overriden in subclass: " + this.ToString());
 	}
+
+	/* Can the clickable object act upon other objects?
+	 */
+	public virtual bool IsActor() {
+		return false;
+	}
+
+	/* Can the clickable object be performed actions upon?
+	 */
+	public virtual bool IsSubject() {
+		return false;
+	}
+
+	/* Can the clickable object be used in an action? (beds, etc.)
+	 */
+	public virtual bool IsObject() {
+		return false;
+	}
 }

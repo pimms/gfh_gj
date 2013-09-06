@@ -9,6 +9,7 @@ public class MouseInput: MonoBehaviour {
 	
 	}
 	
+
 	void checkMouseInput() {
 		RaycastHit rayHit = new RaycastHit();
 		Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));

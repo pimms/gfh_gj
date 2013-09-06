@@ -13,7 +13,7 @@ public class Nurse : Clickable {
 	
 	}
 
-	public void OnMouseClick(int mouseButton, InputQueue queue) {
+	public void OnMouseClick(int mouseButton) {
 
 	}
 }

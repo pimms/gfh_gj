@@ -13,7 +13,7 @@ public class Patient : Clickable {
 	
 	}
 
-	public void OnMouseClick(int mouseButton, InputQueue queue) {
+	public void OnMouseClick(int mouseButton) {
 
 	}
 }

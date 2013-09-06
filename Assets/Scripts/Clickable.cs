@@ -13,7 +13,7 @@ public class Clickable : MonoBehaviour {
 	/* When the person is clicked, it must respond. How? Dunno. 
 	 * @param mouseButton		0 = left click, 1 = right click
 	 */
-	public virtual void OnMouseClick(int mouseButton) {
+	public virtual void OnMouseClick(int mouseButton, InputQueue queue) {
 		Debug.Log("OnMouseClick() is not overriden in subclass: " + this.ToString());
 	}
 }

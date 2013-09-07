@@ -47,7 +47,9 @@ public class Nurse : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
+		float oldY = transform.position.y;
 		transform.position = bed.GetAssistPosition();
+		transform.position += new Vector3(0f, oldY, 0f);
 	}
 
 	public bool IsActor() {

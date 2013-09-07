@@ -53,7 +53,10 @@ public class Surgeon : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
+		float oldY = transform.position.y;
 		transform.position = bed.GetPrimaryPosition();
+		transform.position += new Vector3(0f, oldY, 0f);
+
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
 

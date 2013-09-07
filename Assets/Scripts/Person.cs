@@ -12,22 +12,7 @@ public class Person : Clickable {
 
 	private bool movedLastFrame;
 
-	protected virtual void Start() {
-		currentPath = new List<PathNode>();
-	}
 
-	protected virtual void Update() {
-		if (currentPath.Count != 0) {
-			FollowPath(currentPath);
-		} else if (movedLastFrame) {
-			OnPathCompleted();
-			movedLastFrame = false;
-		}
-
-		if (shouldGoToBed) {
-			GoToBed();
-		}
-	}
 
 	public void FollowPath(List<PathNode> path) {
 		if (path == null || path.Count == 0) {
@@ -59,6 +44,29 @@ public class Person : Clickable {
 		shouldGoToBed = (currentBed != null);
 	}
 
+
+	protected virtual void Start() {
+		currentPath = new List<PathNode>();
+	}
+
+	protected virtual void Update() {
+		if (currentPath.Count != 0) {
+			FollowPath(currentPath);
+		} else if (movedLastFrame) {
+			OnPathCompleted();
+			movedLastFrame = false;
+		}
+
+		if (shouldGoToBed) {
+			GoToBed();
+		}
+	}
+
+	protected virtual void OnBedReached(Bed bed) {
+		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
+	}
+
+
 	protected void GoToBed() {
 		Vector3 diff = currentBed.transform.position - transform.position;
 		diff.y = 0f;
@@ -74,8 +82,13 @@ public class Person : Clickable {
 		pos += diff * Time.deltaTime * walkSpeed;
 		transform.position = pos;
 	}
+	
+	protected void RemoveFromSurgery() {
+		OrBed orBed = currentBed as OrBed;
+		if (orBed != null) {
+			orBed.RemovePerson(this);
+		}
 
-	protected virtual void OnBedReached(Bed bed) {
-		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
+		currentBed = null;
 	}
 }

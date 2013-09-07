@@ -12,4 +12,7 @@ public class Money : MonoBehaviour {
 	void Update () {
 	
 	}
+	
+	float MoneyInAccount = 100f;
+	
 }

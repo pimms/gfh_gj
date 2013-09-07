@@ -69,12 +69,10 @@ public class InputOrder {
 				}
 
 			}
-			if ( order.subject != null && (_order.objectAction as Bed).patient == null ) {
+			if (order.subject != null && (_order.objectAction as Bed) != null && (_order.objectAction as Bed).patient == null) {
 				Bed bed = _order.objectAction as Bed;
 				bed.patient = order.subject as Patient;
 				order.subject.BeginPerform(_order);
-	
-				
 			}
 		}
 	}

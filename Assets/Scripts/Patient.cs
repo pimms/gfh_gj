@@ -3,10 +3,6 @@ using System.Collections;
 
 public class Patient : Person {
 
-	// Used when the patient has reached the bed
-	bool shouldGoToBed = false;
-	Bed currentBed;
-
 	protected override void Start() {
 		base.Start();
 		walkSpeed = 6f;

@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
+	// Used when the person has reached an eventual bed
+	protected bool shouldGoToBed = false;
+	protected Bed currentBed;
+
 	protected float walkSpeed = 10f;
 	protected List<PathNode> currentPath;
 

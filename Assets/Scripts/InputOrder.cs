@@ -34,7 +34,9 @@ public class InputOrder {
 	}
 	
 	public void AddAsActor(Clickable actor) {
-		_order.actors.Add(actor);
+		if (!_order.actors.Contains(actor)) {
+			_order.actors.Add(actor);
+		}
 	}
 	
 	public void AddAsSubject(Clickable Subject) {
@@ -46,9 +48,11 @@ public class InputOrder {
 	}
 	
 	public void PerformOrder() {
+		Debug.Log("Performing order!");
 		foreach (Clickable actor in order.actors) {
 			actor.BeginPerform(order);
 		}
+		_order.subject.BeginPerform(order);
 	}
 	
 	public void Clear() {

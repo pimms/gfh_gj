@@ -3,41 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
-	private List<PathNode> currentPath;
-	private bool hasInit = false;
+	// Used when the person has reached an eventual bed
+	protected bool shouldGoToBed = false;
+	protected Bed currentBed;
 
+	protected float walkSpeed = 10f;
+	protected List<PathNode> currentPath;
 
-	protected virtual void Start () {
+	private bool movedLastFrame;
+
+	protected virtual void Start() {
 		currentPath = new List<PathNode>();
 	}
-	
-	protected virtual void Update () {
-		if (!hasInit) {
-			List<PathNode> allNodes = new List<PathNode>();
 
-			foreach (GameObject g in GameObject.FindGameObjectsWithTag("Path Nodes")) {
-				allNodes.Add(g.GetComponent<PathNode>());
-			}
-
-			Vector3 destination = new Vector3(23f, 1f, 37f);
-
-			Timer t = new Timer();
-
-			AStar astar = new AStar();
-			currentPath = astar.FindPath(transform.position, destination);
-
-			t.End("'find path'");
-			Debug.Log("PATH LENGTH: " + currentPath.Count);
-			hasInit = true;
+	protected virtual void Update() {
+		if (currentPath.Count != 0) {
+			FollowPath(currentPath);
+		} else if (movedLastFrame) {
+			OnPathCompleted();
+			movedLastFrame = false;
 		}
 
-		FollowPath(currentPath);
+		if (shouldGoToBed) {
+			GoToBed();
+		}
 	}
 
 	public void FollowPath(List<PathNode> path) {
 		if (path == null || path.Count == 0) {
 			return;
 		}
+
+		movedLastFrame = true;
 
 		Vector3 dest = path[0].transform.position;
 		dest.y = transform.position.y;
@@ -54,7 +51,31 @@ public class Person : Clickable {
 		diff.Normalize();
 
 		Vector3 pos = transform.position;
-		pos += diff * Time.deltaTime * 10f;
+		pos += diff * Time.deltaTime * walkSpeed;
 		transform.position = pos;
+	}
+
+	public virtual void OnPathCompleted() {
+		shouldGoToBed = (currentBed != null);
+	}
+
+	protected void GoToBed() {
+		Vector3 diff = currentBed.transform.position - transform.position;
+		diff.y = 0f;
+
+		if (diff.magnitude < 0.3f) {
+			OnBedReached(currentBed);
+			shouldGoToBed = false;
+		}
+
+		diff.Normalize();
+
+		Vector3 pos = transform.position;
+		pos += diff * Time.deltaTime * walkSpeed;
+		transform.position = pos;
+	}
+
+	protected virtual void OnBedReached(Bed bed) {
+		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
 	}
 }

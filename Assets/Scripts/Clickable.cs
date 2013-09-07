@@ -24,7 +24,7 @@ public class Clickable : MonoBehaviour {
 	}
 
 	public virtual void BeginPerform(Order order) {
-		Debug.LogError("Unoverriden method in Clickable: BeginPerform()");
+		Debug.LogError("BeginPerform() not overriden in " + this.ToString());
 	}
 
 	/* Can the clickable object act upon other objects?

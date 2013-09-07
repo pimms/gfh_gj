@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Surgeon : Person {
 	protected override void Start () {
@@ -16,11 +17,14 @@ public class Surgeon : Person {
 	}
 
 	public override void BeginPerform(Order order) {
+		base.BeginPerform(order);
+
 		Vector3 pos = transform.position;
 		Vector3 subjectPos = order.subject.transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
 
-		//PathFind pos(subjectPos, objectPos);
+		AStar astar = new AStar();
+		currentPath = astar.FindPath(pos, objectPos);
 	}
 
 	public bool IsActor() {

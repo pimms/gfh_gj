@@ -3,35 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
-	private List<PathNode> currentPath;
-	private bool hasInit = false;
-
-
+	protected List<PathNode> currentPath;
+	
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
 	}
 	
 	protected virtual void Update () {
-		if (!hasInit) {
-			List<PathNode> allNodes = new List<PathNode>();
-
-			foreach (GameObject g in GameObject.FindGameObjectsWithTag("Path Nodes")) {
-				allNodes.Add(g.GetComponent<PathNode>());
-			}
-
-			Vector3 destination = new Vector3(23f, 1f, 37f);
-
-			Timer t = new Timer();
-
-			AStar astar = new AStar();
-			currentPath = astar.FindPath(transform.position, destination);
-
-			t.End("'find path'");
-			Debug.Log("PATH LENGTH: " + currentPath.Count);
-			hasInit = true;
+		if (currentPath.Count != 0) {
+			FollowPath(currentPath);
 		}
-
-		FollowPath(currentPath);
 	}
 
 	public void FollowPath(List<PathNode> path) {

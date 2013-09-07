@@ -41,6 +41,7 @@ public class Patient : Person {
 	public override void BeginPerform(Order order) {
 		base.BeginPerform(order);
 
+		transform.rotation = Quaternion.identity;
 		currentBed = order.objectAction as Bed;
 
 		AStar astar = new AStar();
@@ -59,6 +60,7 @@ public class Patient : Person {
 	}
 
 	private void LieInBed(Bed bed) {
-		
+		transform.rotation = bed.GetLieRotation();
+		transform.position = bed.GetLiePosition();
 	}
 }

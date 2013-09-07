@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+
 public class PathNode : MonoBehaviour {
+	public static List<PathNode> allNodes;
+
 	public List<PathNode> neighbours;
 
 	private float g;
@@ -28,8 +32,19 @@ public class PathNode : MonoBehaviour {
 		get { return parent; }
 	}
 
+	void Awake() {
+		Debug.Log("wyawyewayey");
+		if (allNodes == null) {
+			allNodes = new List<PathNode>();
+		}
+
+		if (!allNodes.Contains(this)) {
+			allNodes.Add(this);
+		}
+	}
+
 	void Start () {
-	
+		
 	}
 	
 	void Update () {

@@ -4,28 +4,38 @@ using System.Collections.Generic;
 
 public class Person : Clickable {
 	private List<PathNode> currentPath;
+	private bool hasInit = false;
+
 
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
-		List<PathNode> allNodes = new List<PathNode>();
-
-		foreach (GameObject g in GameObject.FindGameObjectsWithTag("Path Nodes")) {
-			allNodes.Add(g.GetComponent<PathNode>());
-		}
-
-		Vector3 destination = new Vector3(23f, 1f, 37f);
-
-		AStar astar = new AStar(allNodes);
-		currentPath = astar.FindPath(transform.position, destination);
 	}
 	
 	protected virtual void Update () {
+		if (!hasInit) {
+			List<PathNode> allNodes = new List<PathNode>();
+
+			foreach (GameObject g in GameObject.FindGameObjectsWithTag("Path Nodes")) {
+				allNodes.Add(g.GetComponent<PathNode>());
+			}
+
+			Vector3 destination = new Vector3(23f, 1f, 37f);
+
+			Timer t = new Timer();
+
+			AStar astar = new AStar();
+			currentPath = astar.FindPath(transform.position, destination);
+
+			t.End("'find path'");
+			Debug.Log("PATH LENGTH: " + currentPath.Count);
+			hasInit = true;
+		}
+
 		FollowPath(currentPath);
 	}
 
 	public void FollowPath(List<PathNode> path) {
-		if (path.Count == 0) {
-			Debug.Log("I'M AT MY DESTINATION AND IT'S JOLLY GOOD M8");
+		if (path == null || path.Count == 0) {
 			return;
 		}
 

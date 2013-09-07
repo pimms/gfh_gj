@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bed : MonoBehaviour {
+public class Bed : Clickable {
 
-	// Use this for initialization
 	void Start () {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	void OnMouseClick(int mouseButton, InputOrder inOrder) {
+		if (inOrder.order.actors.Count != 0 &&
+		inOrder.order.subject != null) {
+			inOrder.AddAsObject(this);
+		}
 	}
 }

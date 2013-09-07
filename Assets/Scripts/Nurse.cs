@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Nurse : Person {
 
-	void Start() {
+	protected override void Start() {
 		base.Start();
 	}
 
@@ -11,8 +12,16 @@ public class Nurse : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, InputOrder queue) {
+	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
+		inOrder.AddAsActor(this);
+	}
 
+	public override void BeginPerform(Order order) {
+		Vector3 pos = transform.position;
+		Vector3 subjectPos = order.subject.transform.position;
+		Vector3 objectPos = order.objectAction.transform.position;
+
+		//AStar path = new AStar(pos, objectPos);
 	}
 
 	public bool IsActor() {

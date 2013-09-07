@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Surgeon : Person {
-	void Start () {
+	protected override void Start () {
 		base.Start();
 	}
 	
@@ -10,8 +10,17 @@ public class Surgeon : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, InputOrder queue) {
+	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
+		inOrder.AddAsActor(this);
+		Debug.Log("BITCH DON'T CLICK ME");
+	}
 
+	public override void BeginPerform(Order order) {
+		Vector3 pos = transform.position;
+		Vector3 subjectPos = order.subject.transform.position;
+		Vector3 objectPos = order.objectAction.transform.position;
+
+		//PathFind pos(subjectPos, objectPos);
 	}
 
 	public bool IsActor() {

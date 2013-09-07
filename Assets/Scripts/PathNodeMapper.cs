@@ -7,24 +7,9 @@ public class PathNodeMapper : MonoBehaviour {
 
 
 	void Start() {
-		pathNodes = new List<PathNode>();
-
-		if (!GetPathNodes()) {
-			Debug.LogError("No path nodes found");
-			return;
-		}
-
+		Timer t = new Timer();
 		MapNeighbours();
-	}
-
-	private bool GetPathNodes() {
-		pathNodes.Clear();
-
-		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Path Nodes")) {
-			pathNodes.Add(go.GetComponent<PathNode>());
-		}
-
-		return pathNodes.Count != 0;
+		t.End("'map nodes'");
 	}
 
 	private void MapNeighbours() {
@@ -34,10 +19,10 @@ public class PathNodeMapper : MonoBehaviour {
 		List<PathNode> done = new List<PathNode>();
 		int i = 0;
 
-		foreach (PathNode node in pathNodes) {
+		foreach (PathNode node in PathNode.allNodes) {
 			node.name = "Path Node " + (++i);
 
-			foreach (PathNode neighbour in pathNodes) {
+			foreach (PathNode neighbour in PathNode.allNodes) {
 				if (done.Contains(node)) continue;
 				if (node == neighbour) continue;
 

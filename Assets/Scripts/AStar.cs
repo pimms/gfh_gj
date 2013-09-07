@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AStar {
-	List<PathNode> pathNodes;
 	List<PathNode> open;
 	List<PathNode> closed;
 
 	private const float gPerStep = 10f;
 
-	public AStar(List<PathNode> nodes) {
-		pathNodes = nodes;
-
+	public AStar() {
 		open = new List<PathNode>();
 		closed = new List<PathNode>();
 	}
@@ -20,8 +17,14 @@ public class AStar {
 		PathNode startNode = GetClosest(from);
 		PathNode endNode = GetClosest(to);
 
+		Debug.Log("Going from " + startNode.name + " to " + endNode.name);
+
 		PathNode cur = startNode;
 		open.Add(cur);
+
+		foreach (PathNode node in PathNode.allNodes) {
+			node.H = Distance(node, endNode);
+		}
 
 		while (open.Count != 0) {
 			cur = open[0];
@@ -41,16 +44,16 @@ public class AStar {
 			closed.Add(cur);
 
 			foreach (PathNode node in cur.neighbours) {
-				if (closed.Contains(node) && cur.G + gPerStep >= cur.G) {
-					continue;
-				} else {
-					node.Parent = cur;
-					node.G = cur.G + gPerStep;
-					node.H = Distance(node, endNode);
-
-					if (!open.Contains(node)) {
-						open.Add(node);
+				float tentG = Distance(node, cur);
+				if (open.Contains(node)) {
+					if (cur.G + tentG < node.G) {
+						node.Parent = cur;
+						node.G = cur.G + tentG;
 					}
+				} else if (!closed.Contains(node)) {
+					open.Add(node);
+					node.Parent = cur;
+					node.G = cur.G + tentG;
 				}
 			}
 		}
@@ -59,13 +62,14 @@ public class AStar {
 	}
 
 	private PathNode GetClosest(Vector3 position) {
-		PathNode closest = pathNodes[0];
+		PathNode closest = PathNode.allNodes[0];
 		float minDist = Vector3.Distance(closest.transform.position, position);
 
-		foreach (PathNode anode in pathNodes) {
+		foreach (PathNode anode in PathNode.allNodes) {
 			float dist = Vector3.Distance(anode.transform.position, position);
 			if (dist < minDist) {
 				closest = anode;
+				minDist = dist;
 			}
 		}
 
@@ -81,7 +85,7 @@ public class AStar {
 
 		PathNode cur = endNode;
 
-		while (cur != null && cur.Parent != startNode) {
+		while (cur.Parent != null) {
 			path.Add(cur);
 			cur = cur.Parent;
 		}

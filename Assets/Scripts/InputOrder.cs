@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 struct Order {
-	public List<Clickable> actors = new List<Clickable>();
-	public Clickable subject = new Clickable();
-	public Clickable objectAction = new Clickable();
+	
+	public List<Clickable> actors;// = new List<Clickable>();
+	public Clickable subject;// = new Clickable();
+	public Clickable objectAction;// = new Clickable();
 }
 
 public class InputOrder {
 	//public List<Clickable> actors = new List<Clickable>();
 	//public Clickable subject = new Clickable();
 	//public Clickable objectAction = new Clickable();
-	public Order order = new Order();
+	Order order = new Order();
 	
 	public void AddAsActor(Clickable actor) {
 		order.actors.Add(actor);
@@ -29,7 +30,7 @@ public class InputOrder {
 	/*
 	public void CreateOrder() {
 		//Order order = new Order();
-		order.actors = actors;
+		//order.actors = actors;
 		order.subject = subject;
 		order.objectAction = objectAction;
 		
@@ -44,7 +45,7 @@ public class InputOrder {
 	}
 	
 	public void ClearOrder() {
-		order.actors.Clear();
+		//order.actors.Clear();
 		order.subject = null;
 		order.objectAction = null;
 	}

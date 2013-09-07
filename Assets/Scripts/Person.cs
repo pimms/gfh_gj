@@ -3,9 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
-
-	
 	protected int health = 100;
+
+	// Used when the person has reached an eventual bed
+	protected bool shouldGoToBed = false;
+	protected Bed currentBed;
+
+	protected float walkSpeed = 10f;
+	protected List<PathNode> currentPath;
+
+	private bool movedLastFrame;
+	private Color dispColor;
+
 	
 	void OnGUI () {
 		
@@ -20,32 +29,9 @@ public class Person : Clickable {
 		}
 	}
 	
-	// Used when the person has reached an eventual bed
-	protected bool shouldGoToBed = false;
-	protected Bed currentBed;
-
-	protected float walkSpeed = 10f;
-	protected List<PathNode> currentPath;
-
-	private bool movedLastFrame;
-
-	
-	private Color dispColor;
-	
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
 	}
-	
-	protected virtual void Update () {
-		if (currentPath.Count != 0) {
-			FollowPath(currentPath);
-		} else if (movedLastFrame) {
-			OnPathCompleted();
-			movedLastFrame = false;
-		}
-	}
-	
-
 
 	public void FollowPath(List<PathNode> path) {
 		if (path == null || path.Count == 0) {
@@ -77,10 +63,6 @@ public class Person : Clickable {
 		shouldGoToBed = (currentBed != null);
 	}
 
-
-	protected virtual void Start() {
-		currentPath = new List<PathNode>();
-	}
 
 	protected virtual void Update() {
 		if (currentPath.Count != 0) {

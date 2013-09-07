@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
-	protected float health = 100;
+	public int health = 100;
 
 	// Used when the person has reached an eventual bed
 	protected bool shouldGoToBed = false;
@@ -14,7 +14,6 @@ public class Person : Clickable {
 
 	private bool movedLastFrame;
 	private Color dispColor;
-
 	
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
@@ -50,7 +49,6 @@ public class Person : Clickable {
 		shouldGoToBed = (currentBed != null);
 	}
 
-
 	protected virtual void Update() {
 		if (currentPath.Count != 0) {
 			FollowPath(currentPath);
@@ -67,7 +65,6 @@ public class Person : Clickable {
 	protected virtual void OnBedReached(Bed bed) {
 		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
 	}
-
 
 	protected void GoToBed() {
 		Vector3 diff = currentBed.transform.position - transform.position;
@@ -93,8 +90,4 @@ public class Person : Clickable {
 
 		currentBed = null;
 	}
-
-    public Bed GetBed() {
-        return currentBed;
-    }
 }

@@ -44,7 +44,6 @@ public class Patient : Person {
 		{20, -5, -10},	
 	};
 
-
 	protected override void Start() {
 		base.Start();
 		walkSpeed = 6f;
@@ -102,7 +101,6 @@ public class Patient : Person {
 		isInBed = true;
 	}
 
-
     public void Kill() {
 		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);
@@ -112,7 +110,6 @@ public class Patient : Person {
 		AddSmokeEffect(pfSmokeOfGoingHome);
 		Destroy(gameObject);
 	}
-
 
 	private void HealthTimerUpdate() {
 		healthTimer -= Time.deltaTime;
@@ -152,7 +149,6 @@ public class Patient : Person {
 			Kill();
 		}
 	}
-
 
 	private void DecreaseHealth() {
 		sickness--;

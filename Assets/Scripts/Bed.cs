@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
 public class Bed : Clickable {
+	public Nurse nurse;
+    public Patient patient;
 
 	void Start () {
+		nurse = null;
+		patient = null;
 	
 	}
 	
@@ -12,14 +16,16 @@ public class Bed : Clickable {
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
-		if (inOrder.order.actors.Count != 0 
-		&&  inOrder.order.subject != null) {
-
+		if (inOrder.order.actors.Count != 0) {
 			inOrder.AddAsObject(this);
+
 			inOrder.PerformOrder();
 			inOrder.Clear();
+
 		}
 	}
+	
+	
 
 	public virtual Vector3 GetLiePosition() {
 		Vector3 liePos = new Vector3(0f, 0.7f, 0f);
@@ -43,5 +49,13 @@ public class Bed : Clickable {
 		Vector3 assist = new Vector3(0f, 0f, 1f);
 		assist += transform.position;
 		return assist;
+	}
+	
+	public virtual void RemovePerson(Person person) {
+		if (person == nurse) {
+			nurse = null;
+        } else if (person == patient) {
+            patient = null;
+        }
 	}
 }

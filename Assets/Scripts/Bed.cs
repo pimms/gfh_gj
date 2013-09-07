@@ -15,7 +15,6 @@ public class Bed : Clickable {
 		if (inOrder.order.actors.Count != 0 
 		&&  inOrder.order.subject != null) {
 			inOrder.AddAsObject(this);
-
 			inOrder.PerformOrder();
 			inOrder.Clear();
 		}

@@ -56,7 +56,7 @@ public class Person : Clickable {
 	}
 
 	public virtual void OnPathCompleted() {
-
+		shouldGoToBed = (currentBed != null);
 	}
 
 	protected void GoToBed() {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OrBed : Bed {
+public class OrBed : Clickable {
 
 	void Start () {
 	

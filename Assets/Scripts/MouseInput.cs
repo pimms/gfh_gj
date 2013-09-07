@@ -42,56 +42,7 @@ public class MouseInput: MonoBehaviour {
 			
 		}
 	}
-			
-	/*
-	void checkMouseInput() {
-		RaycastHit rayHit = new RaycastHit();
-		Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-		if ( Physics.Raycast(selectRay ,out rayHit ) ) {
-			Clickable objectUnderMouse = rayHit.transform.GetComponent<Clickable>() as Clickable;
-			if ( objectUnderMouse != null ) {
-				objectUnderMouse.OnMouseHover();
-				checkMouseClick( objectUnderMouse );
-			}
-		}
-	}
-	
-	void checkMouseOrder() {
-		if (Input.GetMouseButtonUp(0) && !Input.GetMouseButtonUp(1)) {
-			RaycastHit rayHit = new RaycastHit();
-			Ray selectRay = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-			if ( Physics.Raycast(selectRay ,out rayHit ) ) {
-				Clickable clicked = rayHit.transform.GetComponent<Clickable>() as Clickable;
-				if ( clicked != null ) {
-					//clicked.OnMouseClick(0, );
-				}
-			}		
-		}
-	}
-	
-	void selectUnitsBox (){
-		foreach (var gameObj in FindObjectsOfType(typeof(GameObject)) as GameObject[]) {
-			
-		}
 
-	}
-	
-	void checkMouseSelection() { 
-		if ( Input.GetMouseButtonDown(1)){ 
-			startBox = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-			endBox = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-			dragging = true;
-			selection = false;
-		} else if ( Input.GetMouseButtonUp(1 )){
-			dragging = false;
-			selectUnitsBox ();
-			selection = true;
-		}
-	}
-	
-	
-	*/
-	
 	bool withinDrag( Vector2 coordinates ){
 		if ( coordinates.x > startBox.x && coordinates.x < endBox.x && coordinates.y < startBox.y && coordinates.y > endBox.y  ) {
 			return true;
@@ -104,7 +55,6 @@ public class MouseInput: MonoBehaviour {
 		foreach (Clickable clickables in FindObjectsOfType(typeof(Clickable)) as Clickable[]){
 			if ( withinDrag(Camera.main.WorldToScreenPoint(clickables.transform.position))){
 				//clicked.OnMouseClick(mouseKey+100, );
-				clickables.transform.Translate( new Vector3(1,1,1));//test
 			}
 		}
 	}
@@ -116,7 +66,6 @@ public class MouseInput: MonoBehaviour {
 			Clickable clicked = rayHit.transform.GetComponent<Clickable>() as Clickable;
 			if ( clicked != null ) {
 				//clicked.OnMouseClick(mouseKey, );
-				//clicked.transform.Translate( new Vector3(1,1,1));//test
 			}
 		}
 	}

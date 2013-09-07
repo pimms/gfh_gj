@@ -52,42 +52,21 @@ public class Surgeon : Person {
         }
 	}
 
-    public int WalkingProbability(Patient Bob) {
-        int random = Random.Range(1, 101);
-        if (random < Patient.patOutRates[Bob.sickness, 0]) {
-            return Patient.patOutRates[Bob.sickness, 0];
-        } else if (random < Patient.patOutRates[Bob.sickness, 1] + Patient.patOutRates[Bob.sickness, 0]) {
-            return Patient.patOutRates[Bob.sickness, 1];
-        } else {
-            return Patient.patOutRates[Bob.sickness, 2];
-        }
-    }
+	protected override void OnBedReached(Bed bed) {
+		transform.position = bed.GetPrimaryPosition();
 
-    public int InBedProbability(Patient Bob){
-        int random = Random.Range(1, 101);
-        if (random < Patient.patBedRates[Bob.sickness, 0]) {
-            return Patient.patBedRates[Bob.sickness, 0];
-        } else if (random < Patient.patBedRates[Bob.sickness, 1] + Patient.patBedRates[Bob.sickness, 0]) {
-            return Patient.patBedRates[Bob.sickness, 1];
-        } else {
-            return Patient.patBedRates[Bob.sickness, 2];
-        }
-    }
-
-    protected override void OnBedReached(Bed bed) {
         OrBed orBed = bed as OrBed;
-        if (orBed == null) {
-            transform.position = bed.GetPrimaryPosition();
-            //bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
-            if (OperationProbability(orBed.nurse, orBed.patient)) {
-                orBed.nurse.exp -= 5;
-                orBed.patient.Kill();
-            } else {
-                orBed.nurse.exp += 3;
-                exp += 10;
-            }
-        } else {
-            int probability = InBedProbability(orBed.patient);
-        }
-    }
+        if (orBed == null) return;
+
+		return;
+		transform.position = bed.GetPrimaryPosition();
+		//bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
+        if (OperationProbability(orBed.nurse, orBed.patient)) {
+            orBed.nurse.exp -= 5;
+            orBed.patient.Kill();
+		} else {
+			orBed.nurse.exp += 3;
+			exp += 10;
+		}
+	}
 }

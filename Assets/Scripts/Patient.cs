@@ -10,6 +10,8 @@ public class Patient : Person {
 		get { return isInBed; }
 	}
 
+	private float healthTimer;
+
 	public static int[,] patBedRates = {
 		{5, 90, 5},
 		{25, 65, 10},
@@ -43,10 +45,15 @@ public class Patient : Person {
 	protected override void Start() {
 		base.Start();
 		walkSpeed = 6f;
+
+		healthTimer = UnityEngine.Random.Range(30f, 60f);
 	}
 
 	void Update() {
 		base.Update();
+
+		HealthTimerUpdate();
+		HealthUpdate();
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -75,8 +82,64 @@ public class Patient : Person {
 		isInBed = true;
 	}
 
+
     public void Kill() {
         // TODO: Smoke effect!
-        DestroyObject(this);
+		Destroy(gameObject);
     }
+
+	public void SendHome() {
+		// TODO: Increase some score or some shit
+		Destroy(gameObject);
+	}
+
+
+	private void HealthTimerUpdate() {
+		healthTimer -= Time.deltaTime;
+		if (healthTimer < 0) {
+			healthTimer = UnityEngine.Random.Range(30f, 60f);
+
+			int dice = UnityEngine.Random.Range(0, 99);
+			int[,] arr = (isInBed) ? (patBedRates) : (patOutRates);
+
+			if (dice < arr[sickness, 0]) {
+				DecreaseHealth();
+			} else if (dice < arr[sickness, 1]) {
+				// Do nothing
+			} else {
+				IncreaseHealth();
+			}
+		}
+	}
+
+	private void HealthUpdate() {
+		if (sickness < 1 || sickness > 5) {
+			return;
+		}
+
+		int dice = Random.Range(0, 1);
+
+		health += (float)patHealthSec[sickness, dice] * Time.deltaTime;
+		health = Mathf.Clamp(health, -100f, 100f);
+
+		if (health <= 0f) {
+			Kill();
+		}
+	}
+
+
+	private void DecreaseHealth() {
+		sickness--;
+
+		if (sickness <= 0) {
+			Kill();
+		}
+	}
+
+	private void IncreaseHealth() {
+		sickness++;
+		if (sickness > 5) {
+			SendHome();
+		}
+	}
 }

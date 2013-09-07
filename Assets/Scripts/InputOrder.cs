@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-struct Order {
+public struct Order {
 	
 	public List<Clickable> actors;// = new List<Clickable>();
 	public Clickable subject;// = new Clickable();
@@ -26,17 +26,6 @@ public class InputOrder {
 	public void AddAsObject(Clickable ObjectAction) {
 		order.objectAction = ObjectAction;
 	}
-	
-	/*
-	public void CreateOrder() {
-		//Order order = new Order();
-		//order.actors = actors;
-		order.subject = subject;
-		order.objectAction = objectAction;
-		
-		PerformOrder();
-	}
-	*/
 	
 	public void PerformOrder() {
 		foreach (Clickable actor in order.actors) {

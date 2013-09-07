@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Patient : Person {
 
-	void Start() {
+	protected override void Start() {
 		base.Start();
 	}
 
@@ -11,7 +11,7 @@ public class Patient : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, InputOrder queue) {
+	public void OnMouseClick(int mouseButton, Order queue) {
 
 	}
 	

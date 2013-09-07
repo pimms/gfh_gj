@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Nurse : Person {
 
-	void Start() {
+	protected override void Start() {
 		base.Start();
 	}
 
@@ -14,10 +14,10 @@ public class Nurse : Person {
 
 	public void OnMouseClick(int mouseButton, Order order) {
 		Vector3 pos = transform.position();
-		Vector3 subjectPos = order.subject.transform.position();
+		//Vector3 subjectPos = order.subject.transform.position();
 		Vector3 objectPos = order.objectAction.transform.position();
 		
-		//PathFind pos(subjectPos, objectPos);
+		AStar path = new AStar(pos, objectPos);
 	}
 
 	public bool IsActor() {

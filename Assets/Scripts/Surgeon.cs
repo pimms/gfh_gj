@@ -65,9 +65,12 @@ public class Surgeon : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
+		transform.position = bed.GetPrimaryPosition();
+
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
 
+		return;
 		transform.position = bed.GetPrimaryPosition();
 		//bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
         if (OperationProbability(orBed.nurse, orBed.patient)) {

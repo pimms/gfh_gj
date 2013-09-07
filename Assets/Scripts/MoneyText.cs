@@ -17,7 +17,7 @@ public class MoneyText : MonoBehaviour {
 	
 	void OnGUI(){
 		
-		//GUI.Box(Rect (10,10,50,25), MoneyInAccount+ " £");
-		
+		GUI.Box(new Rect(10,10,50,25), MoneyInAccount+ " £");
+
 	}
 }

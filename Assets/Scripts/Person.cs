@@ -16,19 +16,6 @@ public class Person : Clickable {
 	private Color dispColor;
 
 	
-	void OnGUI () {
-		
-		Rect rect = new Rect(0f,0f, Screen.width, Screen.height );
-		Vector2 pos = Camera.main.WorldToScreenPoint( transform.position );
-		
-		if( rect.Contains(pos) ){
-			float distance = ( Camera.main.transform.position - transform.position).magnitude;
-			if ( distance < 35f){
-				GUI.Box(new Rect(pos.x-400/distance, Screen.height - pos.y-1000/distance, 800/distance, 600/distance), health.ToString() ); //health.ToString()
-			}
-		}
-	}
-	
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
 	}

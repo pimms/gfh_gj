@@ -5,6 +5,7 @@ using System.Collections;
  * fashion.
  */
 public class CameraMovement : MonoBehaviour {
+	
 
 	public float movementFactor = 0.1f;
 
@@ -24,9 +25,10 @@ public class CameraMovement : MonoBehaviour {
 
   
 		if (mouseX < panSize || mouseX > Screen.width - panSize || mouseY < panSize || mouseY > Screen.height - panSize ) {
-			Vector3 panVector = new Vector3((mouseX-Screen.width/2)/1000, (mouseY-Screen.height/2)/1000, 0f);
-			transform.Translate( transform.rotation * panVector, Space.World);
-			
+			Vector3 panVector = new Vector3((mouseX-Screen.width/2)/1000, 0f , (mouseY-Screen.height/2)/1000);
+			panVector = transform.TransformDirection(panVector);
+			panVector.y = 0f;
+			transform.Translate( panVector , Space.World);
 		} else {
 
 		}

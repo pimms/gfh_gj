@@ -26,6 +26,13 @@ public class Patient : Person {
 		path.FindPath(pos, objectPos);
 	}
 
+	public override void BeginPerform(Order order) {
+		base.BeginPerform(order);
+
+		AStar astar = new AStar();
+		currentPath = astar.FindPath(transform.position, order.objectAction.transform.position);
+	}
+
 	public bool IsSubject() {
 		return true;
 	}

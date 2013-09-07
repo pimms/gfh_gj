@@ -17,6 +17,8 @@ public class Nurse : Person {
 	}
 
 	public override void BeginPerform(Order order) {
+		base.BeginPerform(order);
+
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
 

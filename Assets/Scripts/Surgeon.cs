@@ -12,6 +12,7 @@ public class Surgeon : Person {
 
 	public void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		inOrder.AddAsActor(this);
+		Debug.Log("BITCH DON'T CLICK ME");
 	}
 
 	public void BeginPerform(Order order) {

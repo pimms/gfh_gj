@@ -4,7 +4,8 @@ using System.Collections;
 
 public class MouseInput: MonoBehaviour {
 	// Use this for initialization
-	
+
+	private InputOrder inputOrder;
 	private Vector2 currentMouse;
 	private Vector2 startMouse;
 	private bool dragStart;
@@ -15,6 +16,7 @@ public class MouseInput: MonoBehaviour {
 	//Clickable clicked = rayHit.transform.GetComponent<Clickable>() as Clickable;
 	
 	void Start () {
+		inputOrder = new InputOrder();
 		startMouse = new Vector2(100, 100);
 		currentMouse = new Vector2(200, 200);
 		clickStart = false;
@@ -54,7 +56,7 @@ public class MouseInput: MonoBehaviour {
 	void mouseDrag( int mouseKey ) {
 		foreach (Clickable clickables in FindObjectsOfType(typeof(Clickable)) as Clickable[]){
 			if ( withinDrag(Camera.main.WorldToScreenPoint(clickables.transform.position))){
-				//clicked.OnMouseClick(mouseKey+100, );
+				clickables.OnMouseClick(mouseKey + 100, inputOrder);
 			}
 		}
 	}
@@ -65,7 +67,7 @@ public class MouseInput: MonoBehaviour {
 		if ( Physics.Raycast(selectRay ,out rayHit ) ) {
 			Clickable clicked = rayHit.transform.GetComponent<Clickable>() as Clickable;
 			if ( clicked != null ) {
-				//clicked.OnMouseClick(mouseKey, );
+				clicked.OnMouseClick(mouseKey, inputOrder);
 			}
 		}
 	}

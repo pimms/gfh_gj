@@ -3,14 +3,12 @@ using System.Collections;
 
 public class Patient : Person {
 
-	// Use this for initialization
-	void Start () {
-	
+	void Start() {
+		base.Start();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Update() {
+		base.Update();
 	}
 
 	public void OnMouseClick(int mouseButton, InputOrder queue) {

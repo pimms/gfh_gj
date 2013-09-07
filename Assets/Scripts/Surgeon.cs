@@ -44,7 +44,15 @@ public class Surgeon : Person {
 	}
 	
 	public bool OperationProbability(Nurse Laila, Patient Bob) {
-		double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;
+        int probability;
+        if (PasientInBed(Bob))
+        {
+            probability = patInBed[Bob.sickness - 1, 2];
+        } else {
+            probability = patNotInBed[Bob.sickness - 1, 1];
+        }
+		/*
+        double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;
 		double deathProbability = Random.Range(1, 100) * 0.01;
         if (survivalProbability < deathProbability) {
             return true;
@@ -52,6 +60,7 @@ public class Surgeon : Person {
         else {
             return false;
         }
+        */
 	}
 
 	protected override void OnBedReached(Bed bed) {
@@ -68,4 +77,13 @@ public class Surgeon : Person {
 			exp += 10;
 		}
 	}
+
+    public bool PasientInBed(Patient Bob) {
+        if (Bob.GetBed())
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

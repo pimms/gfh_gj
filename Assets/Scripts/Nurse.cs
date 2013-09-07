@@ -20,8 +20,11 @@ public class Nurse : Person {
 
 	public override void BeginPerform(Order order) {
 		shouldGoToBed = false;
+
+		// Abort previous surgery
 		RemoveFromSurgery();
 
+		// Is this a surgery? 
 		currentBed = order.objectAction as Bed;
 		OrBed orBed = currentBed as OrBed;
 		if (orBed != null) {
@@ -31,6 +34,7 @@ public class Nurse : Person {
 			orBed.nurse = this;
 		}
 
+		// Pathfinding!
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
 

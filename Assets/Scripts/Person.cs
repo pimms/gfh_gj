@@ -106,4 +106,8 @@ public class Person : Clickable {
 
 		currentBed = null;
 	}
+
+    public Bed GetBed() {
+        return currentBed;
+    }
 }

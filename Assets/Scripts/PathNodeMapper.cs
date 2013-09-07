@@ -7,9 +7,9 @@ public class PathNodeMapper : MonoBehaviour {
 
 
 	void Start() {
-		Debug.Log("Mapping neighbours...");
+		Timer t = new Timer();
 		MapNeighbours();
-		Debug.Log("Neighbours are mapped!");
+		t.End("'map nodes'");
 	}
 
 	private void MapNeighbours() {

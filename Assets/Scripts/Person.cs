@@ -16,8 +16,12 @@ public class Person : Clickable {
 
 		Vector3 destination = new Vector3(23f, 1f, 37f);
 
+		Timer t = new Timer();
+
 		AStar astar = new AStar();
-		//currentPath = astar.FindPath(transform.position, destination);
+		currentPath = astar.FindPath(transform.position, destination);
+
+		t.End("'find path'");
 		Debug.Log("PATH LENGTH: " + currentPath.Count);
 	}
 	
@@ -26,7 +30,7 @@ public class Person : Clickable {
 	}
 
 	public void FollowPath(List<PathNode> path) {
-		if (path.Count == 0) {
+		if (path == null || path.Count == 0) {
 			return;
 		}
 

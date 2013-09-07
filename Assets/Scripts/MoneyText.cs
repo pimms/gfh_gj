@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class MoneyText : MonoBehaviour {
-
+	
+	public Money MoneyInAccount;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -13,5 +15,10 @@ public class MoneyText : MonoBehaviour {
 	
 	}
 	
-	GUI.Box (Rect(10,10,50,25),  );
+	void OnGUI(){
+		// Making a box for showing current money value
+		GUI.Box(new Rect(10,10,50,25), MoneyInAccount+" £");
+		
+	}
+	
 }

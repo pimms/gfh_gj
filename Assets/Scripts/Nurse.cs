@@ -18,6 +18,7 @@ public class Nurse : Person {
 	}
 
 	public override void BeginPerform(Order order) {
+		shouldGoToBed = false;
 		RemoveFromSurgery();
 
 		currentBed = order.objectAction as Bed;

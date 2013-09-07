@@ -43,47 +43,51 @@ public class Surgeon : Person {
 		return true;
 	}
 	
-	public bool OperationProbability(Nurse Laila, Patient Bob) {
-        int probability;
-        if (PasientInBed(Bob))
-        {
-            probability = patInBed[Bob.sickness - 1, 2];
+	public double OperationProbability(Nurse Laila, Patient Bob) {
+        int random = Random.Range(1, 101);
+        if (random < Patient.patOutRates[Bob.sickness, 0]) {
+            return Patient.patSurgRates[Bob.sickness, 0] * ((Laila.exp * exp) * 0.01);
         } else {
-            probability = patNotInBed[Bob.sickness - 1, 1];
+            return Patient.patSurgRates[Bob.sickness, 1];
         }
-		/*
-        double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;
-		double deathProbability = Random.Range(1, 100) * 0.01;
-        if (survivalProbability < deathProbability) {
-            return true;
-        }
-        else {
-            return false;
-        }
-        */
 	}
 
-	protected override void OnBedReached(Bed bed) {
+    public int WalkingProbability(Patient Bob) {
+        int random = Random.Range(1, 101);
+        if (random < Patient.patOutRates[Bob.sickness, 0]) {
+            return Patient.patOutRates[Bob.sickness, 0];
+        } else if (random < Patient.patOutRates[Bob.sickness, 1] + Patient.patOutRates[Bob.sickness, 0]) {
+            return Patient.patOutRates[Bob.sickness, 1];
+        } else {
+            return Patient.patOutRates[Bob.sickness, 2];
+        }
+    }
+
+    public int InBedProbability(Patient Bob){
+        int random = Random.Range(1, 101);
+        if (random < Patient.patBedRates[Bob.sickness, 0]) {
+            return Patient.patBedRates[Bob.sickness, 0];
+        } else if (random < Patient.patBedRates[Bob.sickness, 1] + Patient.patBedRates[Bob.sickness, 0]) {
+            return Patient.patBedRates[Bob.sickness, 1];
+        } else {
+            return Patient.patBedRates[Bob.sickness, 2];
+        }
+    }
+
+    protected override void OnBedReached(Bed bed) {
         OrBed orBed = bed as OrBed;
-        if (orBed == null) return;
-
-		transform.position = bed.GetPrimaryPosition();
-		//bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
-        if (OperationProbability(orBed.nurse, orBed.patient)) {
-            orBed.nurse.exp -= 5;
-            orBed.patient.Kill();
-		} else {
-			orBed.nurse.exp += 3;
-			exp += 10;
-		}
-	}
-
-    public bool PasientInBed(Patient Bob) {
-        if (Bob.GetBed())
-        {
-            return true;
+        if (orBed == null) {
+            transform.position = bed.GetPrimaryPosition();
+            //bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
+            if (OperationProbability(orBed.nurse, orBed.patient)) {
+                orBed.nurse.exp -= 5;
+                orBed.patient.Kill();
+            } else {
+                orBed.nurse.exp += 3;
+                exp += 10;
+            }
         } else {
-            return false;
+            int probability = InBedProbability(orBed.patient);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
-	protected int health = 100;
+	public int health = 100;
 
 	// Used when the person has reached an eventual bed
 	protected bool shouldGoToBed = false;
@@ -14,7 +14,6 @@ public class Person : Clickable {
 
 	private bool movedLastFrame;
 	private Color dispColor;
-
 	
 	void OnGUI () {
 		
@@ -106,8 +105,4 @@ public class Person : Clickable {
 
 		currentBed = null;
 	}
-
-    public Bed GetBed() {
-        return currentBed;
-    }
 }

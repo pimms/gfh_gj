@@ -9,7 +9,7 @@ public class SelectionArrow : MonoBehaviour {
 	}
 	
 	void Update () {
-		Vector3 pos = new Vector3();
+		Vector3 pos = new Vector3(0f, 0f, 0f);
 		pos.y = Mathf.Cos(Time.time * 2f);
 		transform.localPosition = basePos + pos;
 

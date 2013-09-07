@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Surgeon : Person {
-	const int MAXEXP = 500;
-	public double exp = 100;
+	const int MAXEXP = 200;
+	public double exp = 10;
 
 	protected override void Start () {
 		base.Start();
@@ -44,46 +44,29 @@ public class Surgeon : Person {
 	}
 	
 	public bool OperationProbability(Nurse Laila, Patient Bob) {
-        int probability;
-        if (PasientInBed(Bob))
-        {
-            probability = patInBed[Bob.sickness - 1, 2];
-        } else {
-            probability = patNotInBed[Bob.sickness - 1, 1];
-        }
-		/*
-        double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;
-		double deathProbability = Random.Range(1, 100) * 0.01;
-        if (survivalProbability < deathProbability) {
+        int random = Random.Range(1, 101);
+        if (random < Patient.patOutRates[Bob.sickness, 0]) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
-        */
 	}
 
 	protected override void OnBedReached(Bed bed) {
+		float oldY = transform.position.y;
+		transform.position = bed.GetPrimaryPosition();
+		transform.position += new Vector3(0f, oldY, 0f);
+
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
 
-		transform.position = bed.GetPrimaryPosition();
-		//bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
-        if (OperationProbability(orBed.nurse, orBed.patient)) {
-            orBed.nurse.exp -= 5;
+        //if (OperationProbability(orBed.nurse, orBed.patient)) {
+            //orBed.nurse.exp -= 5;
             orBed.patient.Kill();
-		} else {
-			orBed.nurse.exp += 3;
-			exp += 10;
-		}
-	}
+		//} else {
+			//orBed.nurse.exp += 3;
+			//exp += 10;
+		//}
 
-    public bool PasientInBed(Patient Bob) {
-        if (Bob.GetBed())
-        {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	}
 }

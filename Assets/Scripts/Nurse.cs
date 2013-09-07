@@ -3,11 +3,13 @@ using System.Collections;
 
 
 public class Nurse : Person {
-	const double MAXEXP = 500;
-	public double exp = 100;
+	const double MAXEXP = 100;
+	public double exp = 10;
 
 	protected override void Start() {
 		base.Start();
+
+		walkSpeed = 8f;
 	}
 
 	void Update() {
@@ -45,7 +47,9 @@ public class Nurse : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
+		float oldY = transform.position.y;
 		transform.position = bed.GetAssistPosition();
+		transform.position += new Vector3(0f, oldY, 0f);
 	}
 
 	public bool IsActor() {

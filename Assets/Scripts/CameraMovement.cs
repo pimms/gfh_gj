@@ -5,32 +5,30 @@ using System.Collections;
  * fashion.
  */
 public class CameraMovement : MonoBehaviour {
+
 	public float movementFactor = 0.1f;
 
 	private float lastMouseX;
 	private float lastMouseY;
+	private Vector3 cameraPos;
+	float angle;
 
 	void Start () {
 		
 	}
 	
 	void Update () {
-		if (Input.GetMouseButton(2)) {
-			float mouseX = Input.mousePosition.x;
-			float mouseY = Input.mousePosition.y;
+		const float panSize = 30;
+		float mouseX = Input.mousePosition.x;
+		float mouseY = Input.mousePosition.y;
 
-			Vector3 euler = transform.rotation.ToEuler();
-
-			float deltaX = mouseX - lastMouseX;
-			float deltaY = mouseY - lastMouseY;
-
-			// TODO: SOME FANCY SHIT
+  
+		if (mouseX < panSize || mouseX > Screen.width - panSize || mouseY < panSize || mouseY > Screen.height - panSize ) {
+			Vector3 panVector = new Vector3((mouseX-Screen.width/2)/1000, (mouseY-Screen.height/2)/1000, 0f);
+			transform.Translate( transform.rotation * panVector, Space.World);
 			
-			lastMouseX = mouseX;
-			lastMouseY = mouseY;
 		} else {
-			lastMouseX = Input.mousePosition.x;
-			lastMouseY = Input.mousePosition.y;
+
 		}
 	}
 }

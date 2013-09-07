@@ -2,7 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public struct Order {
+
+/* Order defines what is going to happen:
+ * ATOR(s) does something to SUBJECT using OBJECT
+ */
+public class Order {
+	public Order() {
+		actors = new List<Clickable>();	
+	}
+
 	public List<Clickable> actors;
 	public Clickable subject;
 	public Clickable objectAction;

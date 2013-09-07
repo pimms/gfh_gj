@@ -10,12 +10,12 @@ public class Surgeon : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, InputOrder inOrder) {
+	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		inOrder.AddAsActor(this);
 		Debug.Log("BITCH DON'T CLICK ME");
 	}
 
-	public void BeginPerform(Order order) {
+	public override void BeginPerform(Order order) {
 		Vector3 pos = transform.position;
 		Vector3 subjectPos = order.subject.transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;

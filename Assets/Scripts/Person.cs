@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
-	public int health = 100;
+	public float health = 100f;
 
 	// Used when the person has reached an eventual bed
 	protected bool shouldGoToBed = false;

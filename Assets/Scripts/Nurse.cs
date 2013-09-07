@@ -12,11 +12,11 @@ public class Nurse : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, InputOrder inOrder) {
+	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		inOrder.AddAsActor(this);
 	}
 
-	public void BeginPerform(Order order) {
+	public override void BeginPerform(Order order) {
 		Vector3 pos = transform.position;
 		Vector3 subjectPos = order.subject.transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;

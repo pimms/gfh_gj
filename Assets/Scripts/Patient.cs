@@ -11,7 +11,7 @@ public class Patient : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, InputOrder inOrder) {
+	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		if (inOrder.order.actors.Count != 0) {
 			inOrder.AddAsSubject(this);
 		}

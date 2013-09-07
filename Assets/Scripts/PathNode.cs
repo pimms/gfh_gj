@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PathNode : MonoBehaviour {
+	public static List<PathNode> allNodes;
+
 	public List<PathNode> neighbours;
 
 	private float g;
@@ -29,7 +31,13 @@ public class PathNode : MonoBehaviour {
 	}
 
 	void Start () {
-	
+		if (allNodes == null) {
+			allNodes = new List<PathNode>();
+		}
+
+		if (!allNodes.Contains(this)) {
+			allNodes.Add(this);
+		}
 	}
 	
 	void Update () {

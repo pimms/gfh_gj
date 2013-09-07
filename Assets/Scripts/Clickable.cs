@@ -11,10 +11,7 @@ public class Clickable : MonoBehaviour {
 	}
 
 	void Update() {
-		if (selectionArrow) {
-			// FUCK THE PLOICE FORC
-			selectionArrow.transform.localPosition = new Vector3(0f, 4f, 0f);
-		}
+
 	}
 
 	/* When the person is clicked, it must respond. How? Dunno. 

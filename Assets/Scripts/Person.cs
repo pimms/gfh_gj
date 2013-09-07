@@ -3,6 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
+
+	
+	protected int health = 100;
+	
+	void OnGUI () {
+		
+		Rect rect = new Rect(0f,0f, Screen.width, Screen.height );
+		Vector2 pos = Camera.main.WorldToScreenPoint( transform.position );
+		
+		if( rect.Contains(pos) ){
+			float distance = ( Camera.main.transform.position - transform.position).magnitude;
+			if ( distance < 35f){
+				GUI.Box(new Rect(pos.x-400/distance, Screen.height - pos.y-1000/distance, 800/distance, 600/distance), health.ToString() ); //health.ToString()
+			}
+		}
+	}
+	
 	// Used when the person has reached an eventual bed
 	protected bool shouldGoToBed = false;
 	protected Bed currentBed;
@@ -12,6 +29,22 @@ public class Person : Clickable {
 
 	private bool movedLastFrame;
 
+	
+	private Color dispColor;
+	
+	protected virtual void Start () {
+		currentPath = new List<PathNode>();
+	}
+	
+	protected virtual void Update () {
+		if (currentPath.Count != 0) {
+			FollowPath(currentPath);
+		} else if (movedLastFrame) {
+			OnPathCompleted();
+			movedLastFrame = false;
+		}
+	}
+	
 
 
 	public void FollowPath(List<PathNode> path) {

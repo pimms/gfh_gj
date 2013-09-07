@@ -12,7 +12,7 @@ public class Timer {
 		startTime = Time.timeSinceLevelLoad;
 	}
 
-	public void End(string task = "") {
+	public void End(string task) {
 		float endTime = Time.timeSinceLevelLoad;
 		Debug.Log("Task " + task + " completed in " + (endTime - startTime));
 	}

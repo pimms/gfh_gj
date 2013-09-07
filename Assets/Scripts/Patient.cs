@@ -13,9 +13,7 @@ public class Patient : Person {
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
-		if (inOrder.order.actors.Count != 0) {
-			inOrder.AddAsSubject(this);
-		}
+		inOrder.AddAsSubject(this);
 	}
 
 	public override void BeginPerform(Order order) {

@@ -19,11 +19,11 @@ public class Surgeon : Person {
 	}
 
 	public override void BeginPerform(Order order) {
-		base.BeginPerform(order);
-
 		Vector3 pos = transform.position;
 		Vector3 subjectPos = order.subject.transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
+
+		Debug.Log("My patient is at " + objectPos.ToString());
 
 		AStar astar = new AStar();
 		currentPath = astar.FindPath(pos, objectPos);

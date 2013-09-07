@@ -19,8 +19,6 @@ public class Patient : Person {
 	}
 
 	public override void BeginPerform(Order order) {
-		base.BeginPerform(order);
-
 		transform.rotation = Quaternion.identity;
 		currentBed = order.objectAction as Bed;
 

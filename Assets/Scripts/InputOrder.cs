@@ -53,7 +53,7 @@ public class InputOrder {
 			actor.BeginPerform(order);
 		}
 		_order.subject.BeginPerform(order);
-
+	}
 	
 	public void Clear() {
 		_order = new Order();

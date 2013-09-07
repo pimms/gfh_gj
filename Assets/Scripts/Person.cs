@@ -11,17 +11,21 @@ public class Person : Clickable {
 	protected List<PathNode> currentPath;
 
 	private bool movedLastFrame;
-	
-	protected virtual void Start () {
+
+	protected virtual void Start() {
 		currentPath = new List<PathNode>();
 	}
-	
-	protected virtual void Update () {
+
+	protected virtual void Update() {
 		if (currentPath.Count != 0) {
 			FollowPath(currentPath);
 		} else if (movedLastFrame) {
 			OnPathCompleted();
 			movedLastFrame = false;
+		}
+
+		if (shouldGoToBed) {
+			GoToBed();
 		}
 	}
 
@@ -50,8 +54,28 @@ public class Person : Clickable {
 		pos += diff * Time.deltaTime * walkSpeed;
 		transform.position = pos;
 	}
-	
+
 	public virtual void OnPathCompleted() {
-		
+
+	}
+
+	protected void GoToBed() {
+		Vector3 diff = currentBed.transform.position - transform.position;
+		diff.y = 0f;
+
+		if (diff.magnitude < 0.3f) {
+			OnBedReached(currentBed);
+			shouldGoToBed = false;
+		}
+
+		diff.Normalize();
+
+		Vector3 pos = transform.position;
+		pos += diff * Time.deltaTime * walkSpeed;
+		transform.position = pos;
+	}
+
+	protected virtual void OnBedReached(Bed bed) {
+		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
 	}
 }

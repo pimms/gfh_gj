@@ -10,22 +10,6 @@ public class Patient : Person {
 
 	void Update() {
 		base.Update();
-
-		if (shouldGoToBed) {
-			Vector3 diff = currentBed.transform.position - transform.position;
-			diff.y = 0f;
-
-			if (diff.magnitude < 0.3f) {
-				LieInBed(currentBed);
-				shouldGoToBed = false;
-			}
-
-			diff.Normalize();
-
-			Vector3 pos = transform.position;
-			pos += diff * Time.deltaTime * walkSpeed;
-			transform.position = pos;
-		}
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -55,7 +39,8 @@ public class Patient : Person {
 		shouldGoToBed = (currentBed != null);
 	}
 
-	private void LieInBed(Bed bed) {
+	protected override void OnBedReached(Bed bed) {
+		// lie down in the fucking bed
 		transform.rotation = bed.GetLieRotation();
 		transform.position = bed.GetLiePosition();
 	}

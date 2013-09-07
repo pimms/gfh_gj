@@ -32,4 +32,8 @@ public class Surgeon : Person {
 	public bool IsActor() {
 		return true;
 	}
+
+	protected override void OnBedReached(Bed bed) {
+		// OPERATE THAT FUCKKKKERRRRRRRRRRRRRRRRR
+	}
 }

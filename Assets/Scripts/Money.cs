@@ -1,19 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Money : MonoBehaviour {
 
-	int money = 100;
-	
-	int AddMoney(){
-		if (Patient.Operation == true){
-			Money += Patient.Money();
-		}
-	}
-	
-	
-	
-	// Use this for initialization
+		// Use this for initialization
 	void Start () {
 	
 	}
@@ -21,5 +12,16 @@ public class Money : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	
+	float MoneyInAccount = 100;
+
+
+	void AddMoneyPatient(){
+		if (Patient.Operation == true){
+			MoneyInAccount += Patient.Money();
+		}else{
+			//FUCK OFF!
+		}
 	}
 }

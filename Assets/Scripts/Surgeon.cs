@@ -24,13 +24,14 @@ public class Surgeon : Person {
 		RemoveFromSurgery();
 
 		currentBed = order.objectAction as Bed;
+		/*
 		OrBed orBed = currentBed as OrBed;
 		if (orBed != null) {
 			if (orBed.surgeon != null) {
 				return;
 			}
 			orBed.surgeon = this;
-		}
+		}*/
 
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;

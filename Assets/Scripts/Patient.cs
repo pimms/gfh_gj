@@ -137,7 +137,7 @@ public class Patient : Person {
 	}
 
 	private void HealthUpdate() {
-		Debug.Log("Sickness: " + sickness);
+		//Debug.Log("Sickness: " + sickness);
 		if (sickness < 1 || sickness > 5) {
 			return;
 		}

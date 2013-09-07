@@ -25,7 +25,8 @@ public class Nurse : Person {
 
 		// Abort previous surgery
 		RemoveFromSurgery();
-
+		
+		/*
 		// Is this a surgery? 
 		currentBed = order.objectAction as Bed;
 		OrBed orBed = currentBed as OrBed;
@@ -35,6 +36,7 @@ public class Nurse : Person {
 			}
 			orBed.nurse = this;
 		}
+		*/
 
 		// Pathfinding!
 		Vector3 pos = transform.position;

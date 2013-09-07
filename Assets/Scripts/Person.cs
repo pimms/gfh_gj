@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Person : Clickable {
+	protected float walkSpeed = 10f;
 	protected List<PathNode> currentPath;
+
+	private bool movedLastFrame;
 	
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
@@ -12,6 +15,9 @@ public class Person : Clickable {
 	protected virtual void Update () {
 		if (currentPath.Count != 0) {
 			FollowPath(currentPath);
+		} else if (movedLastFrame) {
+			OnPathCompleted();
+			movedLastFrame = false;
 		}
 	}
 
@@ -19,6 +25,8 @@ public class Person : Clickable {
 		if (path == null || path.Count == 0) {
 			return;
 		}
+
+		movedLastFrame = true;
 
 		Vector3 dest = path[0].transform.position;
 		dest.y = transform.position.y;
@@ -35,7 +43,11 @@ public class Person : Clickable {
 		diff.Normalize();
 
 		Vector3 pos = transform.position;
-		pos += diff * Time.deltaTime * 10f;
+		pos += diff * Time.deltaTime * walkSpeed;
 		transform.position = pos;
+	}
+	
+	public virtual void OnPathCompleted() {
+		
 	}
 }

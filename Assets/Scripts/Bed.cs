@@ -21,4 +21,15 @@ public class Bed : Clickable {
 		}
 	}
 
+	public virtual Vector3 GetLiePosition() {
+		Vector3 liePos = new Vector3(0f, 0.7f, 0f);
+		liePos += transform.position;
+		return liePos;
+	}
+
+	public virtual Quaternion GetLieRotation() {
+		Vector3 euler = transform.rotation.eulerAngles;
+		euler.z = -90f;
+		return Quaternion.Euler(euler);
+	}
 }

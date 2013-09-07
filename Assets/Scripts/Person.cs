@@ -62,7 +62,6 @@ public class Person : Clickable {
 		shouldGoToBed = (currentBed != null);
 	}
 
-
 	protected virtual void Update() {
 		if (currentPath.Count != 0) {
 			FollowPath(currentPath);
@@ -79,7 +78,6 @@ public class Person : Clickable {
 	protected virtual void OnBedReached(Bed bed) {
 		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
 	}
-
 
 	protected void GoToBed() {
 		Vector3 diff = currentBed.transform.position - transform.position;

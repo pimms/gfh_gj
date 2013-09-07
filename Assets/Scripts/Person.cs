@@ -38,4 +38,8 @@ public class Person : Clickable {
 		pos += diff * Time.deltaTime * 10f;
 		transform.position = pos;
 	}
+
+	public virtual void OnPathCompleted() {
+		
+	}
 }

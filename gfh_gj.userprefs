@@ -1,9 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MoneyText.cs">
+    <Files>
+      <File FileName="Assets\Scripts\PathNodeMapper.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MoneyText.cs" Line="6" Column="29" />
+      <File FileName="Assets\Scripts\InputOrder.cs" Line="1" Column="1" />
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Person.cs">
     <Files>
       <File FileName="Assets\Scripts\Person.cs" Line="4" Column="1" />
       <File FileName="Assets\Scripts\MouseInput.cs" Line="1" Column="1" />
+>>>>>>> 207a7dbdc7366099ded01ca1758177d5887c15b5
       <File FileName="Assets\Scripts\Clickable.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Nurse.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Surgeon.cs" Line="1" Column="1" />
@@ -11,7 +19,10 @@
       <File FileName="Assets\Scripts\Bed.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PathNode.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Timer.cs" Line="1" Column="1" />
+<<<<<<< HEAD
+=======
 
+>>>>>>> 207a7dbdc7366099ded01ca1758177d5887c15b5
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

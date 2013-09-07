@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoneyText : MonoBehaviour {
 	
-	public Money MoneyInAccount;
+	float MoneyInAccount = 100f;
 	
 	// Use this for initialization
 	void Start () {
@@ -13,5 +13,11 @@ public class MoneyText : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	
+	void OnGUI(){
+		
+		GUI.Box(Rect (10,10,50,25), MoneyInAccount+ " £");
+		
 	}
 }

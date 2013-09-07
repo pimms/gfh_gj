@@ -47,9 +47,9 @@ public class Surgeon : Person {
         int probability;
         if (PasientInBed(Bob))
         {
-            probability = patInBed[Bob.sickness - 1, 2];
+          	probability = patInBed[Bob.sickness - 1, 2];
         } else {
-            probability = patNotInBed[Bob.sickness - 1, 1];
+          	probability = patNotInBed[Bob.sickness - 1, 1];
         }
 		/*
         double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;

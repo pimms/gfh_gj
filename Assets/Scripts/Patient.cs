@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class Patient : Person {
+	public GameObject pfSmokeOfDeath;
+	public GameObject pfSmokeOfGoingHome;
+
 	// Levels of sickness: 1 is difficult, 5 is easy.
 	public int sickness = 1;
 
@@ -48,11 +51,28 @@ public class Patient : Person {
 		healthTimer = UnityEngine.Random.Range(30f, 60f);
 	}
 
-	void Update() {
+	protected override void Update() {
 		base.Update();
 
 		HealthTimerUpdate();
 		HealthUpdate();
+	}
+
+	void OnGUI() {
+
+		Rect rect = new Rect(0f, 0f, Screen.width, Screen.height);
+		Vector2 pos = Camera.main.WorldToScreenPoint(transform.position);
+
+		if (rect.Contains(pos)) {
+			float distance = (Camera.main.transform.position - transform.position).magnitude;
+			if (distance < 35f) {
+				GUI.color = Color.white;
+				GUI.backgroundColor = new Color(1f-(health / 100f), (health / 100f), 0f, 1f);
+
+				Rect box = new Rect(pos.x - 400 / distance, Screen.height - pos.y - 1000 / distance, health / 2f, 20f);
+				GUI.Button(box, "");
+			}
+		}
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -82,12 +102,12 @@ public class Patient : Person {
 	}
 
     public void Kill() {
-        // TODO: Smoke effect!
+		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);
     }
 
 	public void SendHome() {
-		// TODO: Increase some score or some shit
+		AddSmokeEffect(pfSmokeOfGoingHome);
 		Destroy(gameObject);
 	}
 
@@ -110,14 +130,20 @@ public class Patient : Person {
 	}
 
 	private void HealthUpdate() {
+		Debug.Log("Sickness: " + sickness);
 		if (sickness < 1 || sickness > 5) {
 			return;
 		}
 
-		int dice = Random.Range(0, 1);
+		if (isInBed) {
+			int dice = Mathf.RoundToInt(Random.Range(0, 2));
 
-		health += (float)patHealthSec[sickness, dice] * Time.deltaTime;
-		health = Mathf.Clamp(health, -100f, 100f);
+			health += Time.deltaTime * patHealthSec[sickness, dice];
+		} else {
+			health += Time.deltaTime * patHealthSec[sickness, 2];	
+		}
+
+		health = Mathf.Clamp(health, -10f, 100f);
 
 		if (health <= 0f) {
 			Kill();
@@ -137,5 +163,10 @@ public class Patient : Person {
 		if (sickness > 5) {
 			SendHome();
 		}
+	}
+
+
+	private void AddSmokeEffect(GameObject prefab) {
+		Instantiate(prefab, transform.position, transform.rotation);
 	}
 }

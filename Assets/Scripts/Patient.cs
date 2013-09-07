@@ -3,6 +3,11 @@ using System.Collections;
 
 public class Patient : Person {
 
+	public static int patBedRates[,];		
+	public static int patOutRates[,];
+	public static int patSurgRates[,];
+	public static int patHealthSec[,];
+
 	protected override void Start() {
 		base.Start();
 		walkSpeed = 6f;

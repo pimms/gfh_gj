@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Surgeon : Person {
-	public float exp = 100;
+	const int MAXEXP = 500;
+	public double exp = 100;
 
 	protected override void Start () {
 		base.Start();
@@ -42,18 +43,29 @@ public class Surgeon : Person {
 		return true;
 	}
 	
-	public void OperationProbability() {
-		List<Nurse> nurses = new List<Nurse>();
-		Nurse Laila = new Nurse();
-		nurses.Add(Laila);
-		
-		foreach (Nurse nurse in nurses) {
-			
-		}
-		float probability = Laila.exp;
+	public bool OperationProbability(Nurse Laila, Patient Bob) {
+		double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;
+		double deathProbability = Random.Range(1, 100) * 0.01;
+        if (survivalProbability < deathProbability) {
+            return true;
+        }
+        else {
+            return false;
+        }
 	}
 
 	protected override void OnBedReached(Bed bed) {
+        OrBed orBed = bed as OrBed;
+        if (orBed == null) return;
+
 		transform.position = bed.GetPrimaryPosition();
+		//bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
+        if (OperationProbability(orBed.nurse, orBed.patient)) {
+            orBed.nurse.exp -= 5;
+            orBed.patient.Kill();
+		} else {
+			orBed.nurse.exp += 3;
+			exp += 10;
+		}
 	}
 }

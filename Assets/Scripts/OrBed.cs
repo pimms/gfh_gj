@@ -5,6 +5,7 @@ public class OrBed : Bed {
 	// set externally like wild beasts
 	public Surgeon surgeon;
 	public Nurse nurse;
+    public Patient patient;
 
 	void Start () {
 	
@@ -19,6 +20,9 @@ public class OrBed : Bed {
 			surgeon = null;
 		} else if (person == nurse) {
 			nurse = null;
-		}
+        }
+        else if (person == patient) {
+            patient = null;
+        }
 	}
 }

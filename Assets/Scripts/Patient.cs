@@ -5,10 +5,10 @@ public class Patient : Person {
 	// Levels of sickness: 1 is difficult, 5 is easy.
 	public double sickness = 1;
 
-	public static int patBedRates[,];		
-	public static int patOutRates[,];
-	public static int patSurgRates[,];
-	public static int patHealthSec[,];
+	//public static int patBedRates[,];		
+	//public static int patOutRates[,];
+	//public static int patSurgRates[,];
+	//public static int patHealthSec[,];
 
 	protected override void Start() {
 		base.Start();

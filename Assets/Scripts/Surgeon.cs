@@ -57,13 +57,13 @@ public class Surgeon : Person {
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
 
-		// transform.position = bed.GetPrimaryPosition();
-        if (OperationProbability(orBed.nurse, orBed.patient)) {
-            orBed.nurse.exp -= 5;
+        //if (OperationProbability(orBed.nurse, orBed.patient)) {
+            //orBed.nurse.exp -= 5;
             orBed.patient.Kill();
-		} else {
-			orBed.nurse.exp += 3;
-			exp += 10;
-		}
+		//} else {
+			//orBed.nurse.exp += 3;
+			//exp += 10;
+		//}
+
 	}
 }

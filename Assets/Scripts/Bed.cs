@@ -32,4 +32,16 @@ public class Bed : Clickable {
 		euler.z = -90f;
 		return Quaternion.Euler(euler);
 	}
+
+	public virtual Vector3 GetPrimaryPosition() {
+		Vector3 primary = new Vector3(0f, 0f, -1f);
+		primary += transform.position;
+		return primary;
+	}
+
+	public virtual Vector3 GetAssistPosition() {
+		Vector3 assist = new Vector3(0f, 0f, 1f);
+		assist += transform.position;
+		return assist;
+	}
 }

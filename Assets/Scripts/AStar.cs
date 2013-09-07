@@ -59,10 +59,10 @@ public class AStar {
 	}
 
 	private PathNode GetClosest(Vector3 position) {
-		PathNode closest = open[0];
+		PathNode closest = pathNodes[0];
 		float minDist = Vector3.Distance(closest.transform.position, position);
 
-		foreach (PathNode anode in open) {
+		foreach (PathNode anode in pathNodes) {
 			float dist = Vector3.Distance(anode.transform.position, position);
 			if (dist < minDist) {
 				closest = anode;
@@ -81,8 +81,9 @@ public class AStar {
 
 		PathNode cur = endNode;
 
-		while (cur.Parent != startNode) {
+		while (cur != null && cur.Parent != startNode) {
 			path.Add(cur);
+			cur = cur.Parent;
 		}
 
 		path.Add(startNode);

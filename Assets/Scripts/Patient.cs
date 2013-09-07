@@ -16,6 +16,14 @@ public class Patient : Person {
 	public void OnMouseClick(int mouseButton, InputOrder queue) {
 
 	}
+	
+	public void NurseTrue() {
+		
+	}
+	
+	public void SurgeonTrue() {
+		
+	}
 
 	public bool IsSubject() {
 		return true;

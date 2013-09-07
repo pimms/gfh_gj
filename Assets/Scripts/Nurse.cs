@@ -14,7 +14,11 @@ public class Nurse : Person {
 	}
 
 	public void OnMouseClick(int mouseButton, Order queue) {
-
+		Vector3 pos = transform.position();
+		Vector3 subjectPos = queue.subject.transform.position();
+		Vector3 objectPos = queue.objectAction.transform.position();
+		
+		//PathFind pos(subjectPos, objectPos);
 	}
 
 	public bool IsActor() {

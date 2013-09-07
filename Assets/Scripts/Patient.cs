@@ -16,14 +16,6 @@ public class Patient : Person {
 			inOrder.AddAsSubject(this);
 		}
 	}
-	
-	public void NurseTrue() {
-		
-	}
-	
-	public void SurgeonTrue() {
-		
-	}
 
 	public bool IsSubject() {
 		return true;

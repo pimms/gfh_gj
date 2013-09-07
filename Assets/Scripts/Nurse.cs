@@ -22,6 +22,8 @@ public class Nurse : Person {
 		Vector3 objectPos = order.objectAction.transform.position;
 
 		//AStar path = new AStar(pos, objectPos);
+		AStar path = new AStar();
+		path.FindPath(pos, objectPos);
 	}
 
 	public bool IsActor() {

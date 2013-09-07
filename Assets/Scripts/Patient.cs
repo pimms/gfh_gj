@@ -5,6 +5,11 @@ public class Patient : Person {
 	// Levels of sickness: 1 is difficult, 5 is easy.
 	public double sickness = 1;
 
+	private bool isInBed;
+	public bool IsInBed {
+		get { return isInBed; }
+	}
+
 	public static int[,] patBedRates = {
 		{5, 90, 5},
 		{25, 65, 10},
@@ -38,8 +43,6 @@ public class Patient : Person {
 	protected override void Start() {
 		base.Start();
 		walkSpeed = 6f;
-
-		
 	}
 
 	void Update() {
@@ -52,6 +55,8 @@ public class Patient : Person {
 
 	public override void BeginPerform(Order order) {
 		shouldGoToBed = false;
+		isInBed = false;
+
 		transform.rotation = Quaternion.identity;
 		currentBed = order.objectAction as Bed;
 
@@ -67,6 +72,7 @@ public class Patient : Person {
 		// lie down in the fucking bed
 		transform.rotation = bed.GetLieRotation();
 		transform.position = bed.GetLiePosition();
+		isInBed = true;
 	}
 
     public void Kill() {

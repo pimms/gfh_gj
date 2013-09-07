@@ -78,4 +78,13 @@ public class Person : Clickable {
 	protected virtual void OnBedReached(Bed bed) {
 		Debug.LogWarning("OnBedReached() not overriden in class " + this.ToString());
 	}
+	
+	protected void RemoveFromSurgery() {
+		OrBed orBed = currentBed as OrBed;
+		if (orBed != null) {
+			orBed.RemovePerson(this);
+		}
+
+		currentBed = null;
+	}
 }

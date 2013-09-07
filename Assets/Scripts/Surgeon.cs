@@ -19,16 +19,22 @@ public class Surgeon : Person {
 	}
 
 	public override void BeginPerform(Order order) {
-		Vector3 pos = transform.position;
-		Vector3 subjectPos = order.subject.transform.position;
-		Vector3 objectPos = order.objectAction.transform.position;
+		RemoveFromSurgery();
 
-		Debug.Log("My patient is at " + objectPos.ToString());
+		currentBed = order.objectAction as Bed;
+		OrBed orBed = currentBed as OrBed;
+		if (orBed != null) {
+			if (orBed.surgeon != null) {
+				return;
+			}
+			orBed.surgeon = this;
+		}
+
+		Vector3 pos = transform.position;
+		Vector3 objectPos = order.objectAction.transform.position;
 
 		AStar astar = new AStar();
 		currentPath = astar.FindPath(pos, objectPos);
-
-		currentBed = order.objectAction as Bed;
 	}
 
 	public bool IsActor() {

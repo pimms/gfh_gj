@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Nurse : Clickable {
+public class Nurse : Person {
 
 	// Use this for initialization
 	void Start() {

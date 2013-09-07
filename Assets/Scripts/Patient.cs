@@ -16,6 +16,15 @@ public class Patient : Person {
 			inOrder.AddAsSubject(this);
 		}
 	}
+	
+	public override void BeginPerform(Order order) {
+		Vector3 pos = transform.position;
+		Vector3 objectPos = order.objectAction.transform.position;
+
+		//AStar path = new AStar(pos, objectPos);
+		AStar path = new AStar();
+		path.FindPath(pos, objectPos);
+	}
 
 	public bool IsSubject() {
 		return true;

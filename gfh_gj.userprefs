@@ -1,30 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench />
-=======
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench />
-=======
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\InputOrder.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AStar.cs">
     <Files>
+      <File FileName="Assets\Scripts\MouseInput.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Clickable.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\InputOrder.cs" Line="8" Column="50" />
-      <File FileName="Assets\Scripts\Nurse.cs" Line="16" Column="58" />
-      <File FileName="Assets\Scripts\Surgeon.cs" Line="1" Column="263" />
+      <File FileName="Assets\Scripts\InputOrder.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Nurse.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Surgeon.cs" Line="10" Column="9" />
       <File FileName="Assets\Scripts\Patient.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PathNode.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PathNodeMapper.cs" Line="1" Column="1" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PathNodeMapper.cs">
-    <Files>
-      <File FileName="Assets\Scripts\PathNodeMapper.cs" Line="53" Column="53" />
->>>>>>> 7d64895c904a174af662612a16cf2262557ede00
+      <File FileName="Assets\Scripts\Person.cs" Line="26" Column="18" />
+      <File FileName="Assets\Scripts\AStar.cs" Line="65" Column="1" />
+      <File FileName="Assets\Scripts\Bed.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PathNode.cs" Line="39" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
->>>>>>> 947cb0dbc1c1aea4805f03ae68303afd2626cc49
->>>>>>> 75a143d39d0e46659e347345fb380767c6694421
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

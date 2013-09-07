@@ -49,6 +49,7 @@ public class InputOrder {
 		foreach (Clickable actor in order.actors) {
 			actor.BeginPerform(order);
 		}
+		order.subject.BeginPerform(order);
 	}
 	
 	public void Clear() {

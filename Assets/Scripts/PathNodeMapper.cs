@@ -1,71 +1,70 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PathNodeMapper : MonoBehaviour {
-	public GameObject initialNode;
-	public GameObject pfPathNode;
+	public List<PathNode> pathNodes;
 
-	GameObject[,] setNodes;
 
 	void Start() {
-		if (initialNode == null) {
-			Debug.LogError("No inital node set");
+		pathNodes = new List<PathNode>();
+
+		if (!GetPathNodes()) {
+			Debug.LogError("No path nodes found");
 			return;
 		}
 
-		setNodes = new GameObject[64,64];
-		CreateNeighbours(initialNode);
-		Debug.Log("DONE, LOL");
+		MapNeighbours();
 	}
 
-	private void CreateNeighbours(GameObject node) {
-		int ix = Mathf.RoundToInt(node.transform.position.x);
-		int iz = Mathf.RoundToInt(node.transform.position.z);
-		Debug.Log("Creating node: " + ix + ", " + iz);
+	private bool GetPathNodes() {
+		pathNodes.Clear();
 
-		if (setNodes[ix, iz] == null) {
-			setNodes[ix, iz] = node;
-		} else {
-			return;
+		foreach (GameObject go in GameObject.FindGameObjectsWithTag("Path Nodes")) {
+			pathNodes.Add(go.GetComponent<PathNode>());
 		}
 
-		int[,] arrDir = new int[4, 2] {
-			{1, 0}, {-1, 0},
-			{0, 1}, {0, -1},
-		};
+		return pathNodes.Count != 0;
+	}
 
-		for (int i = 0; i < 4; i++) {
-			int x = arrDir[i, 0];
-			int z = arrDir[i, 1];
-			Vector3 direction = new Vector3((float)x, 0, (float)z);
-			if (IsClearPath(node.transform.position, direction)) {
-				GameObject neighbour = CreateNode(ix + x, iz + z);
-				LinkNodes(node, neighbour);
-				CreateNeighbours(neighbour);
-			} else {
-				Debug.Log("NOT CLEAR: " + x + ", " + z);
+	private void MapNeighbours() {
+		/* Map the node-relations in a classy
+		 * O(n^2) fashion :)
+		 */
+		List<PathNode> done = new List<PathNode>();
+		int i = 0;
+
+		foreach (PathNode node in pathNodes) {
+			node.name = "Path Node " + (++i);
+
+			foreach (PathNode neighbour in pathNodes) {
+				if (done.Contains(node)) continue;
+				if (node == neighbour) continue;
+
+				if (IsClearPath(node, neighbour)) {
+					LinkNodes(node, neighbour);
+				}
 			}
+
+			done.Add(node);
 		}
 	}
 
-	private void LinkNodes(GameObject node1, GameObject node2) {
-		PathNode path1 = node1.GetComponent<PathNode>();
-		PathNode path2 = node2.GetComponent<PathNode>();
+	private void LinkNodes(PathNode node1, PathNode node2) {
+		if (!node1.neighbours.Contains(node2)) {
+			node1.neighbours.Add(node2);
+		}
 
-		path1.neighbours.Add(path2);
-		path2.neighbours.Add(path1);
+		if (!node2.neighbours.Contains(node1)) {
+			node2.neighbours.Add(node1);
+		}
 	}
 
-	private bool IsClearPath(Vector3 position, Vector3 direction) {
-		return !Physics.Raycast(position, direction);
-	}
+	private bool IsClearPath(PathNode node1, PathNode node2) {
+		float dist = Vector3.Distance(node1.transform.position, node2.transform.position);
+		Vector3 direction = node2.transform.position - node1.transform.position;
+		direction.Normalize();
 
-	private GameObject CreateNode(int x, int z) {
-		Vector3 position = new Vector3((float)x, 0.2f, (float)z);
-
-		GameObject gameObject = Instantiate(pfPathNode) as GameObject;
-		gameObject.transform.position = position;
-
-		return gameObject;
+		return !Physics.Raycast(node1.transform.position, direction, dist, int.MaxValue);
 	}
 }

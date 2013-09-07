@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AStar {
-	List<PathNode> pathNodes;
 	List<PathNode> open;
 	List<PathNode> closed;
 
 	private const float gPerStep = 10f;
 
-	public AStar(List<PathNode> nodes) {
-		pathNodes = nodes;
-
+	public AStar() {
 		open = new List<PathNode>();
 		closed = new List<PathNode>();
 	}
@@ -41,11 +38,12 @@ public class AStar {
 			closed.Add(cur);
 
 			foreach (PathNode node in cur.neighbours) {
-				if (closed.Contains(node) && cur.G + gPerStep >= cur.G) {
+				float tentG = Distance(node, cur);
+				if (closed.Contains(node) && cur.G + tentG >= cur.G) {
 					continue;
 				} else {
 					node.Parent = cur;
-					node.G = cur.G + gPerStep;
+					node.G = cur.G + tentG;
 					node.H = Distance(node, endNode);
 
 					if (!open.Contains(node)) {
@@ -59,10 +57,10 @@ public class AStar {
 	}
 
 	private PathNode GetClosest(Vector3 position) {
-		PathNode closest = pathNodes[0];
+		PathNode closest = PathNode.allNodes[0];
 		float minDist = Vector3.Distance(closest.transform.position, position);
 
-		foreach (PathNode anode in pathNodes) {
+		foreach (PathNode anode in PathNode.allNodes) {
 			float dist = Vector3.Distance(anode.transform.position, position);
 			if (dist < minDist) {
 				closest = anode;

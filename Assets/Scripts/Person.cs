@@ -7,6 +7,7 @@ public class Person : Clickable {
 
 	protected virtual void Start () {
 		currentPath = new List<PathNode>();
+
 		List<PathNode> allNodes = new List<PathNode>();
 
 		foreach (GameObject g in GameObject.FindGameObjectsWithTag("Path Nodes")) {
@@ -15,8 +16,9 @@ public class Person : Clickable {
 
 		Vector3 destination = new Vector3(23f, 1f, 37f);
 
-		AStar astar = new AStar(allNodes);
-		currentPath = astar.FindPath(transform.position, destination);
+		AStar astar = new AStar();
+		//currentPath = astar.FindPath(transform.position, destination);
+		Debug.Log("PATH LENGTH: " + currentPath.Count);
 	}
 	
 	protected virtual void Update () {
@@ -25,7 +27,6 @@ public class Person : Clickable {
 
 	public void FollowPath(List<PathNode> path) {
 		if (path.Count == 0) {
-			Debug.Log("I'M AT MY DESTINATION AND IT'S JOLLY GOOD M8");
 			return;
 		}
 

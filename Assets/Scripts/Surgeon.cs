@@ -3,8 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Surgeon : Person {
+<<<<<<< HEAD
 	public float exp = 100;
 	
+=======
+
+
+>>>>>>> b00e5f7c3154a78fc12afeb5d764a3e22598f05e
 	protected override void Start () {
 		base.Start();
 	}
@@ -32,6 +37,7 @@ public class Surgeon : Person {
 	public bool IsActor() {
 		return true;
 	}
+<<<<<<< HEAD
 	
 	public void OperationProbability() {
 		List<Nurse> nurses = new List<Nurse>();
@@ -42,5 +48,10 @@ public class Surgeon : Person {
 			
 		}
 		float probability = Laila.exp;
+=======
+
+	protected override void OnBedReached(Bed bed) {
+		// OPERATE THAT FUCKKKKERRRRRRRRRRRRRRRRR
+>>>>>>> b00e5f7c3154a78fc12afeb5d764a3e22598f05e
 	}
 }

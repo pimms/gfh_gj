@@ -106,7 +106,7 @@ public class MouseInput: MonoBehaviour {
 			clickStart = true;
 		} else if ( clickStart ) {
 			if ( !dragStart ) {
-				if ((startMouse-currentMouse).magnitude > 5f) {
+				if ((startMouse-currentMouse).magnitude > 15f) {
 				dragStart = true;
 				} 
 				if ( Input.GetMouseButtonUp( mouseKey )) {

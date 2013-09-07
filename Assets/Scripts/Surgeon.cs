@@ -27,6 +27,8 @@ public class Surgeon : Person {
 
 		AStar astar = new AStar();
 		currentPath = astar.FindPath(pos, objectPos);
+
+		currentBed = order.objectAction as Bed;
 	}
 
 	public bool IsActor() {
@@ -43,7 +45,8 @@ public class Surgeon : Person {
 		}
 		float probability = Laila.exp;
 	}
+
 	protected override void OnBedReached(Bed bed) {
-		// OPERATE THAT FUCKKKKERRRRRRRRRRRRRRRRR
+		transform.position = bed.GetPrimaryPosition();
 	}
 }

@@ -30,13 +30,6 @@ public class Patient : Person {
 		return true;
 	}
 
-	public override void OnPathCompleted() {
-		base.OnPathCompleted();
-
-		// Go to bed if bed is set
-		shouldGoToBed = (currentBed != null);
-	}
-
 	protected override void OnBedReached(Bed bed) {
 		// lie down in the fucking bed
 		transform.rotation = bed.GetLieRotation();

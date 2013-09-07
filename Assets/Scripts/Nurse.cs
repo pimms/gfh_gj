@@ -3,7 +3,7 @@ using System.Collections;
 
 
 public class Nurse : Person {
-	// Max exp = ???
+	const double MAXEXP = 500;
 	public double exp = 100;
 
 	protected override void Start() {

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class OrBed : Bed {
-
+	Patient Gey 
 	void Start () {
 	
 	}

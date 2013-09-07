@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class OrBed : Bed {
+	// set externally like wild beasts
+	public Surgeon surgeon;
+	public Nurse nurse;
 
 	void Start () {
 	
@@ -9,5 +12,13 @@ public class OrBed : Bed {
 
 	void Update () {
 	
+	}
+
+	public void RemovePerson(Person person) {
+		if (person == surgeon) {
+			surgeon = null;
+		} else if (person == nurse) {
+			nurse = null;
+		}
 	}
 }

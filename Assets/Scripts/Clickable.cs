@@ -2,12 +2,19 @@
 using System.Collections;
 
 public class Clickable : MonoBehaviour {
+	public GameObject pfSelectionArrow;
+	private GameObject selectionArrow;
+
+
 	void Start() {
 
 	}
 
 	void Update() {
-
+		if (selectionArrow) {
+			// FUCK THE PLOICE FORC
+			selectionArrow.transform.localPosition = new Vector3(0f, 4f, 0f);
+		}
 	}
 
 	/* When the person is clicked, it must respond. How? Dunno. 
@@ -43,5 +50,22 @@ public class Clickable : MonoBehaviour {
 	 */
 	public virtual bool IsObject() {
 		return false;
+	}
+
+
+	public void OnSelect() {
+		CreateSelectionArrow();
+	}
+
+	public void OnDeselect() {
+		Destroy(selectionArrow);
+	}
+
+	private void CreateSelectionArrow() {
+		if (selectionArrow != null) return;
+
+		selectionArrow = Instantiate(pfSelectionArrow) as GameObject;
+		selectionArrow.transform.parent = transform;
+		selectionArrow.transform.localPosition = new Vector3(0f, 4f, 0f);
 	}
 }

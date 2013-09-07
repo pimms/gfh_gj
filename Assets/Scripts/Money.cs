@@ -2,17 +2,7 @@
 using System.Collections;
 
 public class Money : MonoBehaviour {
-	/*
-	int money = 100;
-	
-	int AddMoney(){
-		if (Patient.Operation == true){
-			Money += Patient.Money();
-		}
-	}
-	
-	
-	
+
 	// Use this for initialization
 	void Start () {
 	
@@ -22,5 +12,7 @@ public class Money : MonoBehaviour {
 	void Update () {
 	
 	}
-	 */
+	
+	float MoneyInAccount = 100f;
+	
 }

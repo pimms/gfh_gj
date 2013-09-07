@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class Clickable : MonoBehaviour {
+	public GameObject pfSelectionArrow;
+	private GameObject selectionArrow;
+
+
 	void Start() {
 
 	}
@@ -24,7 +28,7 @@ public class Clickable : MonoBehaviour {
 	}
 
 	public virtual void BeginPerform(Order order) {
-		Debug.LogError("Unoverriden method in Clickable: BeginPerform()");
+		Debug.LogError("BeginPerform() not overriden in " + this.ToString());
 	}
 
 	/* Can the clickable object act upon other objects?
@@ -43,5 +47,22 @@ public class Clickable : MonoBehaviour {
 	 */
 	public virtual bool IsObject() {
 		return false;
+	}
+
+
+	public void OnSelect() {
+		CreateSelectionArrow();
+	}
+
+	public void OnDeselect() {
+		Destroy(selectionArrow);
+	}
+
+	private void CreateSelectionArrow() {
+		if (selectionArrow != null) return;
+
+		selectionArrow = Instantiate(pfSelectionArrow) as GameObject;
+		selectionArrow.transform.parent = transform;
+		selectionArrow.transform.localPosition = new Vector3(0f, 4f, 0f);
 	}
 }

@@ -11,6 +11,7 @@
       <File FileName="Assets\Scripts\Bed.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PathNode.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Timer.cs" Line="1" Column="1" />
+
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

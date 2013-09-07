@@ -73,6 +73,8 @@ public class MouseInput: MonoBehaviour {
 
 			if ( clicked != null ) {
 				clicked.OnMouseClick(mouseKey, inputOrder);
+			} else {
+				inputOrder.Clear();
 			}
 		}
 	}

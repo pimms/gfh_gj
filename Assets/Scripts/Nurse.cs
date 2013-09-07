@@ -3,6 +3,7 @@ using System.Collections;
 
 
 public class Nurse : Person {
+	public float exp = 100;
 
 	protected override void Start() {
 		base.Start();
@@ -17,14 +18,29 @@ public class Nurse : Person {
 	}
 
 	public override void BeginPerform(Order order) {
-		base.BeginPerform(order);
+		shouldGoToBed = false;
+		RemoveFromSurgery();
+
+		currentBed = order.objectAction as Bed;
+		OrBed orBed = currentBed as OrBed;
+		if (orBed != null) {
+			if (orBed.nurse != null) {
+				return;
+			}
+			orBed.nurse = this;
+		}
 
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
 
-		//AStar path = new AStar(pos, objectPos);
-		AStar path = new AStar();
-		path.FindPath(pos, objectPos);
+		AStar astar = new AStar();
+		currentPath = astar.FindPath(pos, objectPos);
+
+		currentBed = order.objectAction as Bed;
+	}
+
+	protected override void OnBedReached(Bed bed) {
+		transform.position = bed.GetAssistPosition();
 	}
 
 	public bool IsActor() {

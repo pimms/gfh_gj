@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoneyText : MonoBehaviour {
-	
-	public Money MoneyInAccount;
-	
+public class Sofa : Bed {
+
 	// Use this for initialization
 	void Start () {
 	

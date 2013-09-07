@@ -37,10 +37,13 @@ public class InputOrder {
 		if (!_order.actors.Contains(actor)) {
 			_order.actors.Add(actor);
 		}
+
+		actor.OnSelect();
 	}
 	
 	public void AddAsSubject(Clickable Subject) {
 		_order.subject = Subject;
+		Subject.OnSelect();
 	}
 	
 	public void AddAsObject(Clickable ObjectAction) {
@@ -56,6 +59,13 @@ public class InputOrder {
 	}
 	
 	public void Clear() {
+		foreach (Clickable actor in _order.actors) {
+			actor.OnDeselect();
+		}
+
+		if (_order.subject != null) _order.subject.OnDeselect();
+		if (_order.objectAction != null) _order.objectAction.OnDeselect();
+
 		_order = new Order();
 	}
 }

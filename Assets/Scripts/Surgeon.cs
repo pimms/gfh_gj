@@ -46,20 +46,25 @@ public class Surgeon : Person {
 	public bool OperationProbability(Nurse Laila, Patient Bob) {
 		double survivalProbability = ((Laila.exp * 0.001) * (exp * 0.01)) * Bob.sickness;
 		double deathProbability = Random.Range(1, 100) * 0.01;
-		if (survivalProbability < deathProbability) {
-			Bob.isDead = true;
-		}
-		return Bob.isDead;
+        if (survivalProbability < deathProbability) {
+            return true;
+        }
+        else {
+            return false;
+        }
 	}
 
 	protected override void OnBedReached(Bed bed) {
-		// OPERATE THAT FUCKKKKERRRRRRRRRRRRRRRRR
+        OrBed orBed = bed as OrBed;
+        if (orBed == null) return;
+
 		transform.position = bed.GetPrimaryPosition();
-		bool BobIsDead = OperationProbability(Nurse Laila, Patient Bob);
-		if (BobIsDead) {
-			Laila.exp -= 5;
+		//bool BobIsDead = OperationProbability(orBed.nurse, orBed.patient);
+        if (OperationProbability(orBed.nurse, orBed.patient)) {
+            orBed.nurse.exp -= 5;
+            orBed.patient.Kill();
 		} else {
-			Laila.exp += 3;
+			orBed.nurse.exp += 3;
 			exp += 10;
 		}
 	}

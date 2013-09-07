@@ -4,7 +4,6 @@ using System.Collections;
 public class Patient : Person {
 	// Levels of sickness: 1 is difficult, 5 is easy.
 	public double sickness = 1;
-	public bool isDead = false;
 
 	protected override void Start() {
 		base.Start();
@@ -39,4 +38,9 @@ public class Patient : Person {
 		transform.rotation = bed.GetLieRotation();
 		transform.position = bed.GetLiePosition();
 	}
+
+    public void Kill() {
+        // TODO: Smoke effect!
+        DestroyObject(this);
+    }
 }

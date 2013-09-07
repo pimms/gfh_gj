@@ -3,39 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 
 public struct Order {
-	
-	public List<Clickable> actors;// = new List<Clickable>();
-	public Clickable subject;// = new Clickable();
-	public Clickable objectAction;// = new Clickable();
+	public List<Clickable> actors;
+	public Clickable subject;
+	public Clickable objectAction;
 }
 
+/* The InputOrder is a wrapper around an 'Order' object
+ * which is under construction.
+ * 
+ * Clickable objects must add themselves to the Order
+ * as they see fit, and may use the data contained within
+ * at any time. The Clickable objects are blindly trusted.
+ */
 public class InputOrder {
-	//public List<Clickable> actors = new List<Clickable>();
-	//public Clickable subject = new Clickable();
-	//public Clickable objectAction = new Clickable();
-	Order order = new Order();
+	private Order _order;
+	public Order order {
+		get { return _order; }
+	}
+
+	public InputOrder() {
+		_order = new Order();
+	}
 	
 	public void AddAsActor(Clickable actor) {
-		order.actors.Add(actor);
+		_order.actors.Add(actor);
 	}
 	
 	public void AddAsSubject(Clickable Subject) {
-		order.subject = Subject;
+		_order.subject = Subject;
 	}
 	
 	public void AddAsObject(Clickable ObjectAction) {
-		order.objectAction = ObjectAction;
+		_order.objectAction = ObjectAction;
 	}
 	
 	public void PerformOrder() {
 		foreach (Clickable actor in order.actors) {
-			actor.OnMouseClick(0, order);
+			actor.BeginPerform(order);
 		}
 	}
 	
-	public void ClearOrder() {
-		//order.actors.Clear();
-		order.subject = null;
-		order.objectAction = null;
+	public void Clear() {
+		_order = new Order();
 	}
 }

@@ -23,6 +23,10 @@ public class Clickable : MonoBehaviour {
 
 	}
 
+	public virtual void BeginPerform(Order order) {
+		Debug.LogError("Unoverriden method in Clickable: BeginPerform()");
+	}
+
 	/* Can the clickable object act upon other objects?
 	 */
 	public virtual bool IsActor() {

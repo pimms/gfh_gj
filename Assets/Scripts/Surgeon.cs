@@ -10,11 +10,15 @@ public class Surgeon : Person {
 		base.Update();
 	}
 
-	public void OnMouseClick(int mouseButton, Order queue) {
-		Vector3 pos = transform.position();
-		Vector3 subjectPos = queue.subject.transform.position();
-		Vector3 objectPos = queue.objectAction.transform.position();
-		
+	public void OnMouseClick(int mouseButton, InputOrder inOrder) {
+		inOrder.AddAsActor(this);
+	}
+
+	public void BeginPerform(Order order) {
+		Vector3 pos = transform.position;
+		Vector3 subjectPos = order.subject.transform.position;
+		Vector3 objectPos = order.objectAction.transform.position;
+
 		//PathFind pos(subjectPos, objectPos);
 	}
 

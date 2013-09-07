@@ -52,7 +52,6 @@ public class InputOrder {
 		foreach (Clickable actor in order.actors) {
 			actor.BeginPerform(order);
 		}
-
 		_order.subject.BeginPerform(order);
 	}
 	

@@ -5,21 +5,21 @@ using System.Collections.Generic;
 public class PathNode : MonoBehaviour {
 	public List<PathNode> neighbours;
 
-	private int g;
-	private int h;
+	private float g;
+	private float h;
 	private PathNode parent;
 
-	public int G {
+	public float G {
 		set { g = value; }
 		get { return g; }
 	}
 
-	public int H {
+	public float H {
 		set { h = value; }
 		get { return h; }
 	}
 
-	public int F {
+	public float F {
 		get { return g + h; }
 	}
 
@@ -37,6 +37,8 @@ public class PathNode : MonoBehaviour {
 	}
 
 	public void Reset() {
-		
+		g = 0f;
+		h = 0f;
+		parent = null;
 	}
 }

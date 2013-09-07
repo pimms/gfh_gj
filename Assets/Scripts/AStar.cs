@@ -7,6 +7,8 @@ public class AStar {
 	List<PathNode> open;
 	List<PathNode> closed;
 
+	private const float gPerStep = 10f;
+
 	public AStar(List<PathNode> nodes) {
 		pathNodes = nodes;
 
@@ -39,12 +41,12 @@ public class AStar {
 			closed.Add(cur);
 
 			foreach (PathNode node in cur.neighbours) {
-				if (closed.Contains(node) && cur.G + 1 >= cur.G) {
+				if (closed.Contains(node) && cur.G + gPerStep >= cur.G) {
 					continue;
 				} else {
 					node.Parent = cur;
-					node.G = cur.G + 1;
-					node.H = Manhattan(node, endNode);
+					node.G = cur.G + gPerStep;
+					node.H = Distance(node, endNode);
 
 					if (!open.Contains(node)) {
 						open.Add(node);
@@ -70,11 +72,8 @@ public class AStar {
 		return closest;
 	}
 
-	private int Manhattan(PathNode node1, PathNode node2) {
-		float xdiff = Mathf.Abs(node1.transform.position.x - node2.transform.position.x);
-		float zdiff = Mathf.Abs(node1.transform.position.z - node2.transform.position.z);
-
-		return Mathf.RoundToInt(xdiff + zdiff);
+	private float Distance(PathNode node1, PathNode node2) {
+		return Vector3.Distance(node1.transform.position, node2.transform.position);
 	}
 
 	private List<PathNode> BuildPath(PathNode startNode, PathNode endNode) {

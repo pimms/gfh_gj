@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Money : MonoBehaviour {
-
+	/*
 	int money = 100;
 	
 	int AddMoney(){
@@ -22,4 +22,5 @@ public class Money : MonoBehaviour {
 	void Update () {
 	
 	}
+	 */
 }

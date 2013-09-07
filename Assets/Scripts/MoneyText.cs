@@ -3,7 +3,7 @@ using System.Collections;
 
 
 public class MoneyText : MonoBehaviour {
-
+	/*
 	
 	int ShowMoney(){
 		guiText.text = "Money = ";
@@ -19,4 +19,5 @@ public class MoneyText : MonoBehaviour {
 	void Update () {
 	
 	}
+	 * */
 }

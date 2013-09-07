@@ -13,5 +13,5 @@ public class MoneyText : MonoBehaviour {
 	
 	}
 	
-	GUI.Box (Rect(10,10,50,25),  );
+	//GUI.Box (Rect(10,10,50,25),  );
 }

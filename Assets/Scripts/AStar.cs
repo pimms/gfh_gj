@@ -17,8 +17,14 @@ public class AStar {
 		PathNode startNode = GetClosest(from);
 		PathNode endNode = GetClosest(to);
 
+		Debug.Log("Going from " + startNode.name + " to " + endNode.name);
+
 		PathNode cur = startNode;
 		open.Add(cur);
+
+		foreach (PathNode node in PathNode.allNodes) {
+			node.H = Distance(node, endNode);
+		}
 
 		while (open.Count != 0) {
 			cur = open[0];
@@ -39,16 +45,15 @@ public class AStar {
 
 			foreach (PathNode node in cur.neighbours) {
 				float tentG = Distance(node, cur);
-				if (closed.Contains(node) && cur.G + tentG >= cur.G) {
-					continue;
-				} else {
+				if (open.Contains(node)) {
+					if (cur.G + tentG < node.G) {
+						node.Parent = cur;
+						node.G = cur.G + tentG;
+					}
+				} else if (!closed.Contains(node)) {
+					open.Add(node);
 					node.Parent = cur;
 					node.G = cur.G + tentG;
-					node.H = Distance(node, endNode);
-
-					if (!open.Contains(node)) {
-						open.Add(node);
-					}
 				}
 			}
 		}
@@ -79,7 +84,7 @@ public class AStar {
 
 		PathNode cur = endNode;
 
-		while (cur != null && cur.Parent != startNode) {
+		while (cur.Parent != null) {
 			path.Add(cur);
 			cur = cur.Parent;
 		}

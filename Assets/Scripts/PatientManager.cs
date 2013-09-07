@@ -11,10 +11,18 @@ public class PatientManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		
+		timer -= Time.deltaTime;
+		if (timer <= 0f) {
+			SpawnPatient();
+			timer = 10f;
+		}
 	}
 
 	private void SpawnPatient() {
-		
+		GameObject gameObj = Instantiate(pfPatient) as GameObject;
+		gameObj.transform.position = new Vector3(24f, 1f, 1.6f);
+
+		Patient patient = gameObj.GetComponent<Patient>();
+		patient.Randomize();
 	}
 }

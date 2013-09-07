@@ -8,6 +8,8 @@ public class Nurse : Person {
 
 	protected override void Start() {
 		base.Start();
+
+		walkSpeed = 8f;
 	}
 
 	void Update() {

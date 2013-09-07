@@ -9,6 +9,10 @@ public class Person : Clickable {
 	protected bool shouldGoToBed = false;
 	protected Bed currentBed;
 
+	// Used when walking to a position
+	protected bool shouldGoToCustomDest;
+	protected Vector3 customDestination;
+
 	protected float walkSpeed = 10f;
 	protected List<PathNode> currentPath;
 
@@ -45,13 +49,37 @@ public class Person : Clickable {
 		transform.position = pos;
 	}
 
+	public void GoToPosition(Vector3 position) {
+		customDestination = position;
+
+		// See if we need pathfinding
+		Vector3 pos1 = transform.position;
+		Vector3 pos2 = position;
+		pos1.y = pos2.y = 0.2f; // fuckthepolice.jpg
+
+		if (!PathNodeMapper.IsClearPath(pos1, pos2)) {
+			AStar astar = new AStar();
+			List<PathNode> path = astar.FindPath(transform.position, customDestination);
+
+			currentPath = path;
+		}
+
+		// DROP IT LIKE IT'S HOT
+		RemoveFromSurgery();
+		shouldGoToBed = false;
+
+		shouldGoToCustomDest = true;
+	}
+
 	public virtual void OnPathCompleted() {
 		shouldGoToBed = (currentBed != null);
 	}
 
 	protected virtual void Update() {
-		if (currentPath.Count != 0) {
+		if (currentPath != null && currentPath.Count != 0) {
 			FollowPath(currentPath);
+		} else if (shouldGoToCustomDest) {
+			GoToCustomPosition();	
 		} else if (movedLastFrame) {
 			OnPathCompleted();
 			movedLastFrame = false;
@@ -74,6 +102,25 @@ public class Person : Clickable {
 			OnBedReached(currentBed);
 			shouldGoToBed = false;
 		}
+
+		diff.Normalize();
+
+		Vector3 pos = transform.position;
+		pos += diff * Time.deltaTime * walkSpeed;
+		transform.position = pos;
+	}
+
+	protected void GoToCustomPosition() {
+		Vector3 diff = customDestination - transform.position;
+		diff.y = 0f;
+
+		if (diff.magnitude < 0.3f) {
+			OnPathCompleted();
+			shouldGoToCustomDest = false;
+			return;
+		}
+
+		movedLastFrame = true;
 
 		diff.Normalize();
 

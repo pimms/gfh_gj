@@ -74,6 +74,25 @@ public class MouseInput: MonoBehaviour {
 			if ( clicked != null ) {
 				clicked.OnMouseClick(mouseKey, inputOrder);
 			} else {
+				if (mouseKey == 1) {
+					Vector3 destination = rayHit.point;
+					if (Mathf.Abs(destination.y) < 0.1f) {
+						Vector3 center = new Vector3();
+
+						// Find the center of the group
+						foreach (Clickable actor in inputOrder.order.actors) {
+							center += actor.transform.position / inputOrder.order.actors.Count;
+						}
+
+						// Move them relative to one another
+						foreach (Clickable actor in inputOrder.order.actors) {
+							Vector3 actorDest = destination + (actor.transform.position - center);
+							Person person = actor as Person;
+							person.GoToPosition(actorDest);
+						}
+					}
+				}
+
 				inputOrder.Clear();
 			}
 		}
@@ -87,7 +106,7 @@ public class MouseInput: MonoBehaviour {
 			clickStart = true;
 		} else if ( clickStart ) {
 			if ( !dragStart ) {
-				if ((startMouse-currentMouse).magnitude > 1.3f) {
+				if ((startMouse-currentMouse).magnitude > 5f) {
 				dragStart = true;
 				} 
 				if ( Input.GetMouseButtonUp( mouseKey )) {

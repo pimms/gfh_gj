@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OrBed : Bed {
+public class Sofa : Bed {
 
 	// Use this for initialization
 	void Start () {

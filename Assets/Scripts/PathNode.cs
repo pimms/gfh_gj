@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+
 public class PathNode : MonoBehaviour {
 	public static List<PathNode> allNodes;
 
@@ -30,7 +32,8 @@ public class PathNode : MonoBehaviour {
 		get { return parent; }
 	}
 
-	void Start () {
+	void Awake() {
+		Debug.Log("wyawyewayey");
 		if (allNodes == null) {
 			allNodes = new List<PathNode>();
 		}
@@ -38,6 +41,10 @@ public class PathNode : MonoBehaviour {
 		if (!allNodes.Contains(this)) {
 			allNodes.Add(this);
 		}
+	}
+
+	void Start () {
+		
 	}
 	
 	void Update () {

@@ -69,6 +69,7 @@ public class AStar {
 			float dist = Vector3.Distance(anode.transform.position, position);
 			if (dist < minDist) {
 				closest = anode;
+				minDist = dist;
 			}
 		}
 

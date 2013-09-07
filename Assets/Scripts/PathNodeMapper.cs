@@ -45,11 +45,19 @@ public class PathNodeMapper : MonoBehaviour {
 		}
 	}
 
-	private bool IsClearPath(PathNode node1, PathNode node2) {
+	public static bool IsClearPath(PathNode node1, PathNode node2) {
 		float dist = Vector3.Distance(node1.transform.position, node2.transform.position);
 		Vector3 direction = node2.transform.position - node1.transform.position;
 		direction.Normalize();
 
 		return !Physics.Raycast(node1.transform.position, direction, dist, int.MaxValue);
+	}
+
+	public static bool IsClearPath(Vector3 pos1, Vector3 pos2) {
+		float dist = Vector3.Distance(pos1, pos2);
+		Vector3 direction = pos2 - pos1;
+		direction.Normalize();
+
+		return !Physics.Raycast(pos1, direction, dist, int.MaxValue);
 	}
 }

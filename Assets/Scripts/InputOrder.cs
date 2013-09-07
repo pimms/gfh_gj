@@ -67,12 +67,20 @@ public class InputOrder {
 					Bed bed = _order.objectAction as Bed;
 					bed.nurse = actor as Nurse;
 					actor.BeginPerform(_order);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ec72f8c69d7fde0690ffd70e9f765371f9c85a3f
 					//----
 					if (_order.objectAction.GetType()  == typeof(OrBed)) {Debug.Log("Nurse ORBED ********************" + this.ToString());}
 					//----
 					
 					
+<<<<<<< HEAD
 				} else if ( actor.GetType() == typeof(Surgeon) && _order.objectAction.GetType() == typeof(OrBed) && _order.objectAction as OrBed != null && (_order.objectAction as OrBed).surgeon == null ) {
+=======
+				} else if ( actor.GetType() == typeof(Surgeon) && _order.objectAction as OrBed != null && _order.objectAction.GetType() == typeof(OrBed) && (_order.objectAction as OrBed).surgeon == null ) {
+>>>>>>> ec72f8c69d7fde0690ffd70e9f765371f9c85a3f
 					OrBed orBed = _order.objectAction as OrBed;
 					orBed.surgeon = actor as Surgeon;
 					actor.BeginPerform(_order);

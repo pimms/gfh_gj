@@ -75,7 +75,6 @@ public class Patient : Person {
 		}
 	}
 
-
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		inOrder.AddAsSubject(this);
 	}

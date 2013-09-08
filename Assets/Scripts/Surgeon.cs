@@ -59,6 +59,9 @@ public class Surgeon : Person {
 
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
+        Bed bedo = new Bed();
+        Debug.Log("Nurse: " + bedo.nurse.exp);
+        Debug.Log("Patient: " + bedo.patient.health);
 
         //if (OperationProbability(orBed.nurse, orBed.patient)) {
             //orBed.nurse.exp -= 5;

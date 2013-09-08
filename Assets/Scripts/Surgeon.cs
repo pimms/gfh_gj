@@ -63,7 +63,7 @@ public class Surgeon : Person {
 
         //if (OperationProbability(orBed.nurse, orBed.patient)) {
             //orBed.nurse.exp -= 5;
-            orBed.patient.Kill();
+            //orBed.patient.Kill();
 		//} else {
 			//orBed.nurse.exp += 3;
 			//exp += 10;

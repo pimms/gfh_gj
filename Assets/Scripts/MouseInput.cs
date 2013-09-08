@@ -68,15 +68,15 @@ public class MouseInput: MonoBehaviour {
 		}
 
 		if (beds.Count > 0 || clickItems.Count > 0) {
-			if (!Input.GetKey(KeyCode.LeftShift)) {
-				inputOrder.Clear();
-			}
-
 			if (clickItems.Count == 0) {
 				foreach (Clickable bed in beds) {
 					bed.OnMouseClick(100 + mouseKey, inputOrder);
 				}
 			} else {
+				if (!Input.GetKey(KeyCode.LeftShift)) {
+					inputOrder.Clear();
+				}
+
 				foreach (Clickable item in clickItems) {
 					item.OnMouseClick(100 + mouseKey, inputOrder);
 				}
@@ -95,8 +95,10 @@ public class MouseInput: MonoBehaviour {
 			}
 
 			if ( clicked != null ) {
-				if (!Input.GetKey(KeyCode.LeftShift)) {
-					inputOrder.Clear();
+				if (clicked as Bed == null) {
+					if (!Input.GetKey(KeyCode.LeftShift)) {
+						inputOrder.Clear();
+					}
 				}
 
 				clicked.OnMouseClick(mouseKey, inputOrder);

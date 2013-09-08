@@ -82,6 +82,7 @@ public class Patient : Person {
 	public override void BeginPerform(Order order) {
 		shouldGoToBed = false;
 		isInBed = false;
+		RemoveFromSurgery();
 
 		transform.rotation = Quaternion.identity;
 		currentBed = order.objectAction as Bed;
@@ -111,12 +112,16 @@ public class Patient : Person {
 	}
 
     public void Kill() {
+		ScoreTracker.singleton.OnPatientDeath();
+
 		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);
         RemoveFromSurgery();
     }
 
 	public void SendHome() {
+		ScoreTracker.singleton.OnPatientSentHome();
+
 		AddSmokeEffect(pfSmokeOfGoingHome);
 		Destroy(gameObject);
         RemoveFromSurgery();

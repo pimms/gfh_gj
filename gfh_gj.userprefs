@@ -1,12 +1,37 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Surgeon.cs">
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PathNode.cs">
     <Files>
-      <File FileName="Assets\Scripts\Surgeon.cs" Line="33" Column="18" />
-      <File FileName="Assets\Scripts\Sofa.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PathNode.cs" Line="36" Column="1" />
+=======
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\InputOrder.cs">
+=======
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MoneyText.cs">
+    <Files>
+      <File FileName="Assets\Scripts\MoneyText.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\OrBed.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Nurse.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Patient.cs" Line="123" Column="29" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Surgeon.cs">
+>>>>>>> f8e2327770576af4c97fc6d88ed3a2dc9f65b6fc
+    <Files>
+      <File FileName="Assets\Scripts\InputOrder.cs" Line="67" Column="63" />
+      <File FileName="Assets\Scripts\Surgeon.cs" Line="85" Column="3" />
+      <File FileName="Assets\Scripts\Sofa.cs" Line="17" Column="18" />
       <File FileName="Assets\Scripts\Patient.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Nurse.cs" Line="11" Column="1" />
+      <File FileName="Assets\Scripts\Nurse.cs" Line="5" Column="19" />
       <File FileName="Assets\Scripts\Person.cs" Line="1" Column="1" />
+<<<<<<< HEAD
+      <File FileName="Assets\Scripts\OrBed.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Bed.cs" Line="51" Column="1" />
+=======
+>>>>>>> d9f584152d229b7c1fd8ef9763b16768f8bccbfa
+>>>>>>> f8e2327770576af4c97fc6d88ed3a2dc9f65b6fc
+>>>>>>> 63c01ab6c3f8efe713a593162f7f4cd3493c5cda
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

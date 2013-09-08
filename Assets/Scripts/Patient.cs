@@ -75,7 +75,6 @@ public class Patient : Person {
 		}
 	}
 
-
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		inOrder.AddAsSubject(this);
 	}
@@ -113,12 +112,16 @@ public class Patient : Person {
 	}
 
     public void Kill() {
+		ScoreTracker.singleton.OnPatientDeath();
+
 		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);
         RemoveFromSurgery();
     }
 
 	public void SendHome() {
+		ScoreTracker.singleton.OnPatientSentHome();
+
 		AddSmokeEffect(pfSmokeOfGoingHome);
 		Destroy(gameObject);
         RemoveFromSurgery();

@@ -23,7 +23,13 @@ public class Surgeon : Person {
 		pos.y = 1f;
 		transform.position = pos;
 
-        if (currentBed) { patientInBed = currentBed.patient.IsInBed; }
+        if (currentBed != null) {
+			if (currentBed.patient != null) {
+				patientInBed = currentBed.patient.IsInBed;
+			} else {
+				patientInBed = false;
+			}
+		}
 
         startTime = Time.realtimeSinceStartup;
 	}

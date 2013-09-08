@@ -95,8 +95,10 @@ public class MouseInput: MonoBehaviour {
 			}
 
 			if ( clicked != null ) {
-				if (!Input.GetKey(KeyCode.LeftShift)) {
-					inputOrder.Clear();
+				if (clicked as Bed == null) {
+					if (!Input.GetKey(KeyCode.LeftShift)) {
+						inputOrder.Clear();
+					}
 				}
 
 				clicked.OnMouseClick(mouseKey, inputOrder);

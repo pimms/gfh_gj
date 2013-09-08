@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ScoreTracker : MonoBehaviour {
 
 	public static ScoreTracker singleton;
 
+	public AudioClip soundWin;
+	public List<AudioClip> soundDeath;
+
 	private int remainingDeaths = 3;
-	private int savedPatients;
+	private int savedPatients = 0;
 	private bool gameOver;
 
 	void Start () {
@@ -33,12 +37,16 @@ public class ScoreTracker : MonoBehaviour {
 		if (remainingDeaths <= 0) {
 			gameOver = true;
 		}
+
+		int ranIdx = Mathf.RoundToInt(Random.Range(0, 3));
+		audio.PlayOneShot(soundDeath[ranIdx]);
 	}
 
 	public void OnPatientSentHome() {
 		if (gameOver) return;
 
 		savedPatients++;
+		audio.PlayOneShot(soundWin);
 	}
 
 

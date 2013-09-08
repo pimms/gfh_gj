@@ -35,29 +35,40 @@ public class Surgeon : Person {
 		return (0.75f+health/200f);
 		
 	}
-	
+
+	/* FUCK THE POLICE THIS IS GOOD CODE */
 	public void energyUpdate() {
-		
+
 		float delta = Time.deltaTime;
-		
+
 		Sofa sofaPtr = currentBed as Sofa;
-		
-		if ( sofaPtr != null) {
-				if (health < 100f) {
-				health += (100f/20f) * Time.deltaTime;
-			}
-			
-		} else if (currentBed != null && currentBed.patient != null ) {
-			if (health > 0f) {
-				health -= (100f/180f) * Time.deltaTime;
-			}
-			
-		} else {
+
+		if (sofaPtr != null) {
 			if (health < 100f) {
-				health += (100f/90f) * Time.deltaTime;
+				health += (100f / 20f) * Time.deltaTime;
+			}
+			return;
+		}
+
+		if (health <= 0f) return;
+
+		float emptyTime = 180f;
+
+		if (currentBed != null
+		&& currentBed.patient != null
+		&& currentBed.patient.IsInBed) {
+			if (health > 0f) {
+				// Roughly two surgeries
+				emptyTime = 20f;
+			}
+
+		} else {
+			if (health > 0f) {
+				emptyTime = 90f;
 			}
 		}
 
+		health -= Time.deltaTime * (100f / emptyTime);
 	}
 	
 	void OnGUI() {
@@ -163,9 +174,9 @@ public class Surgeon : Person {
         patientInBedLastFrame = patInBed;
     }
 
-    protected float XpCoefficient()
+    protected float XpFactor()
     {
-        return (1f + (1f - (1f / (Mathf.Sqrt((float)exp) / 1000f) + 1)));
+        return 1f + (1f - (1f / Mathf.Sqrt((float)exp)));
     }
 
     private void FinalizeOperation() {
@@ -177,17 +188,17 @@ public class Surgeon : Person {
         finalRate *= baseRate;
         finalRate *= healthRate;
 
-        finalRate *= XpCoefficient();
+        finalRate *= XpFactor() / 2f;
 
         if (currentBed.nurse != null) {
-            finalRate *= currentBed.nurse.XpCoefficient();
+            finalRate *= currentBed.nurse.XpFactor() / 2f;
         }
 
         float dice = Random.Range(0f, 99f);
         Debug.Log("baseRate: " + baseRate);
         Debug.Log("healthRate: " + healthRate);
-        Debug.Log("XpCoefficient: " + XpCoefficient());
-        Debug.Log("Nurse ExPerience" + currentBed.nurse.XpCoefficient());
+        Debug.Log("XpCoefficient: " + XpFactor());
+        Debug.Log("Nurse ExPerience" + currentBed.nurse.XpFactor());
         Debug.Log("Dice :" + dice + " < " + finalRate * 100f + " = DEATH!");
         if (dice < (finalRate * 100f)) {
             currentBed.patient.Kill();

@@ -44,7 +44,7 @@ public class PathNode : MonoBehaviour {
 	}
 
 	void Start () {
-		
+		Destroy(transform.FindChild("Capsule").gameObject);
 	}
 	
 	void Update () {

@@ -44,29 +44,41 @@ public class Nurse : Person {
 		return (0.75f+health/200f);
 		
 	}
-	
+
+
+	/* FUCK THE POLICE THIS IS GOOD CODE */
 	public void energyUpdate() {
 		
 		float delta = Time.deltaTime;
 		
 		Sofa sofaPtr = currentBed as Sofa;
-		
-		if ( sofaPtr != null) {
-				if (health < 100f) {
-				health += (100f/20f) * Time.deltaTime;
+
+		if (sofaPtr != null) {
+			if (health < 100f) {
+				health += (100f / 20f) * Time.deltaTime;
 			}
-			
-		} else if (currentBed != null && currentBed.patient != null ) {
+			return;
+		}
+
+		if (health <= 0f) return;
+
+		float emptyTime = 180f;
+		
+		if (currentBed != null 
+		&& currentBed.patient != null
+		&& currentBed.patient.IsInBed) {
 			if (health > 0f) {
-				health -= (100f/180f) * Time.deltaTime;
+				// Roughly three surgeries
+				emptyTime = 30f;
 			}
 			
 		} else {
-			if (health < 100f) {
-				health += (100f/90f) * Time.deltaTime;
+			if (health > 0f) {
+				emptyTime = 60f;
 			}
 		}
 
+		health -= Time.deltaTime * (100f / emptyTime);
 	}
 	
 	
@@ -112,8 +124,8 @@ public class Nurse : Person {
 		return true;
 	}
 
-    public float XpCoefficient()
+    public float XpFactor()
     {
-        return (1f + (0.6f - (1f / (Mathf.Sqrt((float)exp) / 1000f) + 1)));
+        return 1f + (1f - (1f / Mathf.Sqrt((float)exp)));
     }
 }

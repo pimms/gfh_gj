@@ -112,12 +112,16 @@ public class Patient : Person {
 	}
 
     public void Kill() {
+		ScoreTracker.singleton.OnPatientDeath();
+
 		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);
         RemoveFromSurgery();
     }
 
 	public void SendHome() {
+		ScoreTracker.singleton.OnPatientSentHome();
+
 		AddSmokeEffect(pfSmokeOfGoingHome);
 		Destroy(gameObject);
         RemoveFromSurgery();

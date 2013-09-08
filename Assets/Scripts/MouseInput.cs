@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 public class MouseInput: MonoBehaviour {
 	// Use this for initialization
@@ -54,9 +54,32 @@ public class MouseInput: MonoBehaviour {
 	}
 	
 	void mouseDrag( int mouseKey ) {
+		List<Clickable> beds = new List<Clickable>();
+		List<Clickable> clickItems = new List<Clickable>();
+
 		foreach (Clickable clickables in FindObjectsOfType(typeof(Clickable)) as Clickable[]){
 			if ( withinDrag(Camera.main.WorldToScreenPoint(clickables.transform.position))){
-				clickables.OnMouseClick(mouseKey + 100, inputOrder);
+				if (clickables as Bed != null) {
+					beds.Add(clickables);
+				} else {
+					clickItems.Add(clickables);
+				}
+			}
+		}
+
+		if (beds.Count > 0 || clickItems.Count > 0) {
+			if (!Input.GetKey(KeyCode.LeftShift)) {
+				inputOrder.Clear();
+			}
+
+			if (clickItems.Count == 0) {
+				foreach (Clickable bed in beds) {
+					bed.OnMouseClick(100 + mouseKey, inputOrder);
+				}
+			} else {
+				foreach (Clickable item in clickItems) {
+					item.OnMouseClick(100 + mouseKey, inputOrder);
+				}
 			}
 		}
 	}
@@ -72,6 +95,10 @@ public class MouseInput: MonoBehaviour {
 			}
 
 			if ( clicked != null ) {
+				if (!Input.GetKey(KeyCode.LeftShift)) {
+					inputOrder.Clear();
+				}
+
 				clicked.OnMouseClick(mouseKey, inputOrder);
 			} else {
 				if (mouseKey == 1) {
@@ -91,9 +118,9 @@ public class MouseInput: MonoBehaviour {
 							person.GoToPosition(actorDest);
 						}
 					}
+				} else {
+					inputOrder.Clear();
 				}
-
-				inputOrder.Clear();
 			}
 		}
 	}

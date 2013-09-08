@@ -112,7 +112,10 @@ public class Patient : Person {
 	}
 
     public void Kill() {
-		ScoreTracker.singleton.OnPatientDeath();
+		if (currentBed as OrBed == null) {
+			// DO NOT COUNT SURGERIES AS FUCKUPS
+			ScoreTracker.singleton.OnPatientDeath();
+		}
 
 		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);

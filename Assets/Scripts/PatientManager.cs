@@ -14,7 +14,7 @@ public class PatientManager : MonoBehaviour {
 		timer -= Time.deltaTime;
 		if (timer <= 0f) {
 			SpawnPatient();
-			timer = 20f;
+			timer = 15f;
 		}
 	}
 

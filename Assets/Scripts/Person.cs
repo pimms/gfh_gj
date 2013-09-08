@@ -130,11 +130,9 @@ public class Person : Clickable {
 	}
 	
 	protected void RemoveFromSurgery() {
-		OrBed orBed = currentBed as OrBed;
-		if (orBed != null) {
-			orBed.RemovePerson(this);
+		if (currentBed != null) {
+			currentBed.RemovePerson(this);
+			currentBed = null;
 		}
-
-		currentBed = null;
 	}
 }

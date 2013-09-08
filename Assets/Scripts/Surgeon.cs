@@ -12,6 +12,10 @@ public class Surgeon : Person {
 	
 	void Update () {
 		base.Update();
+
+		Vector3 pos = transform.position;
+		pos.y = 1f;
+		transform.position = pos;
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -24,13 +28,14 @@ public class Surgeon : Person {
 		RemoveFromSurgery();
 
 		currentBed = order.objectAction as Bed;
+		/*
 		OrBed orBed = currentBed as OrBed;
 		if (orBed != null) {
 			if (orBed.surgeon != null) {
 				return;
 			}
 			orBed.surgeon = this;
-		}
+		}*/
 
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
@@ -53,16 +58,17 @@ public class Surgeon : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
-		float oldY = transform.position.y;
 		transform.position = bed.GetPrimaryPosition();
-		transform.position += new Vector3(0f, oldY, 0f);
 
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
+        Bed bedo = new Bed();
+        Debug.Log("Nurse: " + bedo.nurse.exp);
+        Debug.Log("Patient: " + bedo.patient.health);
 
         //if (OperationProbability(orBed.nurse, orBed.patient)) {
             //orBed.nurse.exp -= 5;
-            orBed.patient.Kill();
+            //orBed.patient.Kill();
 		//} else {
 			//orBed.nurse.exp += 3;
 			//exp += 10;

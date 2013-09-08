@@ -15,7 +15,7 @@ public class OrBed : Bed {
 	}
 	
 
-	public void RemovePerson(Person person) {
+	public override void RemovePerson(Person person) {
 		if (person == surgeon) {
 			surgeon = null;
 		} else if (person == nurse) {

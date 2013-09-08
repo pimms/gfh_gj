@@ -40,6 +40,7 @@ public class InputOrder {
 		}
 
 		actor.OnSelect();
+		
 	}
 	
 	public void AddAsSubject(Clickable Subject) {
@@ -55,13 +56,22 @@ public class InputOrder {
 	public void PerformOrder() {
 		Debug.Log("Performing order!");
 		
+					if(_order.objectAction.GetType() == typeof(OrBed)){
+						Debug.Log("Nurse Go" + this.ToString());
+					}
+		
 		if (  _order.objectAction.GetType()  == typeof(Bed) || _order.objectAction.GetType()  == typeof(OrBed)  ) {
+			Debug.LogWarning("Start " + this.ToString());
 			foreach (Clickable actor in _order.actors) {
-				if ( actor.GetType() == typeof(Nurse) && (_order.objectAction as Bed != null ) && (_order.objectAction as Bed).nurse == null ) {
+				if ( actor.GetType() == typeof(Nurse) && (_order.objectAction != null ) && (_order.objectAction as Bed).nurse == null ) {
 					Bed bed = _order.objectAction as Bed;
 					bed.nurse = actor as Nurse;
 					actor.BeginPerform(_order);
-				} else if ( actor.GetType() == typeof(Surgeon) && _order.objectAction.GetType() == typeof(OrBed) && _order.objectAction as OrBed != null && (_order.objectAction as OrBed).surgeon == null ) {
+
+					//----
+					if (_order.objectAction.GetType()  == typeof(OrBed)) {Debug.Log("Nurse ORBED ********************" + this.ToString());}
+					//----
+				} else if ( actor.GetType() == typeof(Surgeon) && _order.objectAction != null && _order.objectAction.GetType() == typeof(OrBed) && (_order.objectAction as OrBed).surgeon == null ) {
 					OrBed orBed = _order.objectAction as OrBed;
 					orBed.surgeon = actor as Surgeon;
 					actor.BeginPerform(_order);
@@ -72,6 +82,9 @@ public class InputOrder {
 				Bed bed = _order.objectAction as Bed;
 				bed.patient = order.subject as Patient;
 				order.subject.BeginPerform(_order);
+					//----
+					if (_order.objectAction.GetType()  == typeof(OrBed)) {Debug.Log("Patient ORBED ********************" + this.ToString());}
+					//----
 			}
 		}
 	}

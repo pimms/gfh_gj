@@ -154,6 +154,9 @@ public class Patient : Person {
 		if (isInBed) {
 			int dice = Mathf.RoundToInt(Random.Range(0, 1));
 			health += Time.deltaTime * patHealthMin[sickness - 1, dice] / 60f;
+			if ( currentBed.nurse != null ) {
+				health += 10f*3*(currentBed.nurse.efficieny()-0.85f)*Time.deltaTime/60f;
+			} 
 		} else {
 			health += Time.deltaTime * patHealthMin[sickness - 1, 2] / 60f;	
 		}

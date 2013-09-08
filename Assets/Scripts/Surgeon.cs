@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Surgeon : Person {
 	const int MAXEXP = 200;
 	public double exp = 10;
+    protected bool isOperating = false;
 
     public float surgeryPerformance = 0f;
     const int OPERATIONMAXTIME = 5;
@@ -35,7 +36,7 @@ public class Surgeon : Person {
             survivalRate = surgeryPerformance * (basePercent * (currentBed.patient.health / 100) * xpCoeff);
         }
         if (currentBed != null) {
-			if (currentBed.patient != null) {
+			if (currentBed.patient != null && isOperating) {
 				patientInBed = currentBed.patient.IsInBed;
 			} else {
 				patientInBed = false;
@@ -119,28 +120,35 @@ public class Surgeon : Person {
 		return true;
 	}
 	
-	public float OperationProbability(Nurse Laila, Patient Bob) {
+	public bool OperationProbability(Nurse Laila, Patient Bob) {
         int random = Random.Range(0, 100);
         
         if (random < Patient.patOutRates[Bob.sickness, 0]) {
-            return Patient.patSurgRates[Bob.sickness, 0];
-            //return true;
+            //return Patient.patSurgRates[Bob.sickness, 0];
+            return true;
         } else {
-            return Patient.patSurgRates[Bob.sickness, 1];
-            //return false;
+            //return Patient.patSurgRates[Bob.sickness, 1];
+            return false;
         }
 	}
 
 	protected override void OnBedReached(Bed bed) {
+        isOperating = true;
 		transform.position = bed.GetPrimaryPosition();
         operationTimer = 5;
+        while (patientInBed) {
+            if (OperationProbability(currentBed.nurse, currentBed.patient)) {
+                currentBed.nurse.exp -= 5;
+                currentBed.patient.Kill();
+            } else {
+                currentBed.nurse.exp += 3;
+                exp += 10;
+            }
+            isOperating = false;
+        }
+        //while (operationTimer <= 0) { Debug.Log("Waiting to fisish surgery."); }
 
-        Debug.Log("Get in that bed bitch! " + currentBed.patient.IsInBed);
-        Debug.Log("NURSE: " + currentBed.nurse.exp);
-        Debug.Log("Patient: " + currentBed.patient.health);
-        while (operationTimer <= 0) { Debug.Log("Waiting to fisish surgery."); }
-
-        basePercent = OperationProbability(currentBed.nurse, currentBed.patient);
+        //basePercent = OperationProbability(currentBed.nurse, currentBed.patient);
 
         /*
         if (OperationProbability(currentBed.nurse, currentBed.patient)) {

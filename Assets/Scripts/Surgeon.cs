@@ -6,6 +6,12 @@ public class Surgeon : Person {
 	const int MAXEXP = 200;
 	public double exp = 10;
 
+    public bool patientInBed;
+    public double surgeryPerformance = 0;
+    const int OPERATIONMAXTIME = 5;
+    float startTime;
+    float xpCoeff;
+
 	protected override void Start () {
 		base.Start();
 	}
@@ -16,6 +22,10 @@ public class Surgeon : Person {
 		Vector3 pos = transform.position;
 		pos.y = 1f;
 		transform.position = pos;
+
+        if (currentBed) { patientInBed = currentBed.patient.IsInBed; }
+
+        startTime = Time.realtimeSinceStartup;
 	}
 	
 	public float efficieny(){
@@ -95,7 +105,8 @@ public class Surgeon : Person {
 	}
 	
 	public bool OperationProbability(Nurse Laila, Patient Bob) {
-        int random = Random.Range(1, 101);
+        int random = Random.Range(0, 100);
+        // surgeryPerformance += (Time.deltaTime / (OPERATIONMAXTIME)) * currentBed.nurse.efficiency;
         if (random < Patient.patOutRates[Bob.sickness, 0]) {
             return true;
         } else {
@@ -105,20 +116,19 @@ public class Surgeon : Person {
 
 	protected override void OnBedReached(Bed bed) {
 		transform.position = bed.GetPrimaryPosition();
+        float operationEndTime = startTime + 5;
 
-        OrBed orBed = bed as OrBed;
-        if (orBed == null) return;
-        Bed bedo = new Bed();
-        Debug.Log("Nurse: " + bedo.nurse.exp);
-        Debug.Log("Patient: " + bedo.patient.health);
-
-        //if (OperationProbability(orBed.nurse, orBed.patient)) {
-            //orBed.nurse.exp -= 5;
-            //orBed.patient.Kill();
-		//} else {
-			//orBed.nurse.exp += 3;
-			//exp += 10;
-		//}
-
+        //OrBed orBed = bed as OrBed;
+        //if (orBed == null) return;
+        Debug.Log("Get in that bed bitch! " + currentBed.patient.IsInBed);
+        Debug.Log("NURSE: " + currentBed.nurse.exp);
+        Debug.Log("Patient: " + currentBed.patient.health);
+        if (OperationProbability(currentBed.nurse, currentBed.patient)) {
+            currentBed.nurse.exp -= 5;
+            currentBed.patient.Kill();
+        } else {
+            currentBed.nurse.exp += 3;
+            exp += 10;
+        }
 	}
 }

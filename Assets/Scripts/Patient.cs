@@ -98,6 +98,8 @@ public class Patient : Person {
 	public void Randomize() {
 		sickness = Random.Range(1, 5);
 		health = Random.Range(50, 100);
+
+		walkSpeed -= (0.5f * (float)sickness);
 	}
 
 
@@ -126,9 +128,9 @@ public class Patient : Person {
 			int dice = UnityEngine.Random.Range(0, 99);
 			int[,] arr = (isInBed) ? (patBedRates) : (patOutRates);
 
-			if (dice < arr[sickness, 0]) {
+			if (dice < arr[sickness - 1, 0]) {
 				DecreaseHealth();
-			} else if (dice < arr[sickness, 1]) {
+			} else if (dice < arr[sickness - 1, 1]) {
 				// Do nothing
 			} else {
 				IncreaseHealth();
@@ -137,7 +139,7 @@ public class Patient : Person {
 	}
 
 	private void HealthUpdate() {
-		Debug.Log("Sickness: " + sickness);
+		//Debug.Log("Sickness: " + sickness);
 		if (sickness < 1 || sickness > 5) {
 			return;
 		}

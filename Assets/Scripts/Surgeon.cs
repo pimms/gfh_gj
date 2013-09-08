@@ -24,13 +24,14 @@ public class Surgeon : Person {
 		RemoveFromSurgery();
 
 		currentBed = order.objectAction as Bed;
+		/*
 		OrBed orBed = currentBed as OrBed;
 		if (orBed != null) {
 			if (orBed.surgeon != null) {
 				return;
 			}
 			orBed.surgeon = this;
-		}
+		}*/
 
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
@@ -65,7 +66,7 @@ public class Surgeon : Person {
 
         //if (OperationProbability(orBed.nurse, orBed.patient)) {
             //orBed.nurse.exp -= 5;
-            orBed.patient.Kill();
+            //orBed.patient.Kill();
 		//} else {
 			//orBed.nurse.exp += 3;
 			//exp += 10;

@@ -104,6 +104,7 @@ public class Patient : Person {
 
 
 	protected override void OnBedReached(Bed bed) {
+        Debug.Log("LIE DOWN!");
 		// lie down in the fucking bed
 		transform.rotation = bed.GetLieRotation();
 		transform.position = bed.GetLiePosition();
@@ -113,11 +114,13 @@ public class Patient : Person {
     public void Kill() {
 		AddSmokeEffect(pfSmokeOfDeath);
 		Destroy(gameObject);
+        RemoveFromSurgery();
     }
 
 	public void SendHome() {
 		AddSmokeEffect(pfSmokeOfGoingHome);
 		Destroy(gameObject);
+        RemoveFromSurgery();
 	}
 
 	private void HealthTimerUpdate() {

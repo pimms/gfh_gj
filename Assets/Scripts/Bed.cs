@@ -7,8 +7,7 @@ public class Bed : Clickable {
 
 	void Start () {
 		nurse = null;
-		patient = null;
-	
+        patient = null;
 	}
 	
 	void Update () {
@@ -23,9 +22,7 @@ public class Bed : Clickable {
 			inOrder.PerformOrder();
 			inOrder.Clear();
 		}
-	}
-	
-	
+	}	
 
 	public virtual Vector3 GetLiePosition() {
 		Vector3 liePos = new Vector3(0f, 0.7f, 0f);

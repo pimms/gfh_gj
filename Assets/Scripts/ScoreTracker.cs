@@ -38,7 +38,7 @@ public class ScoreTracker : MonoBehaviour {
 			gameOver = true;
 		}
 
-		int ranIdx = Mathf.RoundToInt(Random.Range(0, 3));
+		int ranIdx = Mathf.RoundToInt(Random.Range(0, 6));
 		audio.PlayOneShot(soundDeath[ranIdx]);
 	}
 

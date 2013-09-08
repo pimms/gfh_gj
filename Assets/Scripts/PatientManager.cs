@@ -4,7 +4,7 @@ using System.Collections;
 public class PatientManager : MonoBehaviour {
 	public GameObject pfPatient;
 
-	private float timer = 10f;
+	private float timer = 5f;
 
 	void Start () {
 	
@@ -14,7 +14,7 @@ public class PatientManager : MonoBehaviour {
 		timer -= Time.deltaTime;
 		if (timer <= 0f) {
 			SpawnPatient();
-			timer = 10f;
+			timer = 20f;
 		}
 	}
 

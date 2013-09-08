@@ -56,7 +56,7 @@ public class Nurse : Person {
 				health += (100f/20f) * Time.deltaTime;
 			}
 			
-		} else if (currentBed != null) {
+		} else if (currentBed != null && currentBed.patient != null ) {
 			if (health > 0f) {
 				health -= (100f/180f) * Time.deltaTime;
 			}

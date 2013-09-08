@@ -8,6 +8,7 @@ public class Surgeon : Person {
 
     public float surgeryPerformance = 0f;
     const int OPERATIONMAXTIME = 5;
+    protected bool patientInBed;
 
     float xpCoeff;
     float basePercent;
@@ -20,7 +21,7 @@ public class Surgeon : Person {
 	
 	void Update () {
 		base.Update();
-
+		energyUpdate();
 		Vector3 pos = transform.position;
 		pos.y = 1f;
 		transform.position = pos;
@@ -33,8 +34,61 @@ public class Surgeon : Person {
         if (currentBed != null && currentBed.patient != null) {
             survivalRate = surgeryPerformance * (basePercent * (currentBed.patient.health / 100) * xpCoeff);
         }
+        if (currentBed != null) {
+			if (currentBed.patient != null) {
+				patientInBed = currentBed.patient.IsInBed;
+			} else {
+				patientInBed = false;
+			}
+		}
 	}
+	
+	public float efficieny(){
+		return (0.75f+health/200f);
+		
+	}
+	
+	public void energyUpdate() {
+		
+		float delta = Time.deltaTime;
+		
+		Sofa sofaPtr = currentBed as Sofa;
+		
+		if ( sofaPtr != null) {
+				if (health < 100f) {
+				health += (100f/20f) * Time.deltaTime;
+			}
+			
+		} else if (currentBed != null && currentBed.patient != null ) {
+			if (health > 0f) {
+				health -= (100f/180f) * Time.deltaTime;
+			}
+			
+		} else {
+			if (health < 100f) {
+				health += (100f/90f) * Time.deltaTime;
+			}
+		}
 
+	}
+	
+	void OnGUI() {
+
+		Rect rect = new Rect(0f, 0f, Screen.width, Screen.height);
+		Vector2 pos = Camera.main.WorldToScreenPoint(transform.position);
+
+		if (rect.Contains(pos)) {
+			float distance = (Camera.main.transform.position - transform.position).magnitude;
+			if (distance < 35f) {
+				GUI.color = Color.white;
+				GUI.backgroundColor = new Color(1f, 1f, 1f, 1f);
+
+				Rect box = new Rect(pos.x - 400 / distance, Screen.height - pos.y - 1000 / distance, health / 2f, 10f);
+				GUI.Button(box, "");
+			}
+		}
+	}
+	
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
 		inOrder.AddAsActor(this);
 		Debug.Log("BITCH DON'T CLICK ME");
@@ -68,8 +122,6 @@ public class Surgeon : Person {
 	public float OperationProbability(Nurse Laila, Patient Bob) {
         int random = Random.Range(0, 100);
         
-        
-
         if (random < Patient.patOutRates[Bob.sickness, 0]) {
             return Patient.patSurgRates[Bob.sickness, 0];
             //return true;

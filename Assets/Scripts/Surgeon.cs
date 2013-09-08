@@ -6,12 +6,13 @@ public class Surgeon : Person {
 	const int MAXEXP = 200;
 	public double exp = 10;
 
-    public bool patientInBed;
-    public double surgeryPerformance = 0;
+    public float surgeryPerformance = 0f;
     const int OPERATIONMAXTIME = 5;
-    float startTime;
+
     float xpCoeff;
-    protected double operationTimer;
+    float basePercent;
+    protected float operationTimer;
+    float survivalRate;
 
 	protected override void Start () {
 		base.Start();
@@ -25,6 +26,13 @@ public class Surgeon : Person {
 		transform.position = pos;
 
         operationTimer -= Time.deltaTime;
+        if (currentBed != null && currentBed.nurse != null) {
+            surgeryPerformance += (Time.deltaTime / (OPERATIONMAXTIME)) * (currentBed.nurse.health + health);
+            xpCoeff = (1 + (1 - (1 / ((Mathf.Sqrt((float)currentBed.nurse.exp) / 1000) + 1)))) * (1 + (1 - (1 / ((Mathf.Sqrt((float)exp) / 1000) + 1))));
+        }
+        if (currentBed != null && currentBed.patient != null) {
+            survivalRate = surgeryPerformance * (basePercent * (currentBed.patient.health / 100) * xpCoeff);
+        }
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -57,13 +65,17 @@ public class Surgeon : Person {
 		return true;
 	}
 	
-	public bool OperationProbability(Nurse Laila, Patient Bob) {
+	public float OperationProbability(Nurse Laila, Patient Bob) {
         int random = Random.Range(0, 100);
-        // surgeryPerformance += (Time.deltaTime / (OPERATIONMAXTIME)) * currentBed.nurse.efficiency;
+        
+        
+
         if (random < Patient.patOutRates[Bob.sickness, 0]) {
-            return true;
+            return Patient.patSurgRates[Bob.sickness, 0];
+            //return true;
         } else {
-            return false;
+            return Patient.patSurgRates[Bob.sickness, 1];
+            //return false;
         }
 	}
 
@@ -74,7 +86,11 @@ public class Surgeon : Person {
         Debug.Log("Get in that bed bitch! " + currentBed.patient.IsInBed);
         Debug.Log("NURSE: " + currentBed.nurse.exp);
         Debug.Log("Patient: " + currentBed.patient.health);
-        while (operationTimer <= 0) { Debug.Log("Waiting to fisish surgery."), }
+        while (operationTimer <= 0) { Debug.Log("Waiting to fisish surgery."); }
+
+        basePercent = OperationProbability(currentBed.nurse, currentBed.patient);
+
+        /*
         if (OperationProbability(currentBed.nurse, currentBed.patient)) {
             currentBed.nurse.exp -= 5;
             currentBed.patient.Kill();
@@ -82,5 +98,6 @@ public class Surgeon : Person {
             currentBed.nurse.exp += 3;
             exp += 10;
         }
+        */
 	}
 }

@@ -111,4 +111,9 @@ public class Nurse : Person {
 	public bool IsActor() {
 		return true;
 	}
+
+    public float XpCoefficient()
+    {
+        return (1f + (0.6f - (1f / (Mathf.Sqrt((float)exp) / 1000f) + 1)));
+    }
 }

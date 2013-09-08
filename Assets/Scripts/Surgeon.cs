@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 public class Surgeon : Person {
 	const int MAXEXP = 200;
-	public double exp = 10;
-    protected bool isOperating = false;
-
-    public float surgeryPerformance = 0f;
     const int OPERATIONMAXTIME = 5;
-    protected bool patientInBed;
 
+	public double exp = 10;
+
+    protected bool patientInBedLastFrame;
+
+    // Probability and stuff
+    public float surgeryPerformance = 0f;
     float xpCoeff;
-    float basePercent;
     protected float operationTimer;
     float survivalRate;
 
@@ -23,25 +23,12 @@ public class Surgeon : Person {
 	void Update () {
 		base.Update();
 		energyUpdate();
+
 		Vector3 pos = transform.position;
 		pos.y = 1f;
 		transform.position = pos;
 
-        operationTimer -= Time.deltaTime;
-        if (currentBed != null && currentBed.nurse != null) {
-            surgeryPerformance += (Time.deltaTime / (OPERATIONMAXTIME)) * (currentBed.nurse.health + health);
-            xpCoeff = (1 + (1 - (1 / ((Mathf.Sqrt((float)currentBed.nurse.exp) / 1000) + 1)))) * (1 + (1 - (1 / ((Mathf.Sqrt((float)exp) / 1000) + 1))));
-        }
-        if (currentBed != null && currentBed.patient != null) {
-            survivalRate = surgeryPerformance * (basePercent * (currentBed.patient.health / 100) * xpCoeff);
-        }
-        if (currentBed != null) {
-			if (currentBed.patient != null && isOperating) {
-				patientInBed = currentBed.patient.IsInBed;
-			} else {
-				patientInBed = false;
-			}
-		}
+        SurgeryUpdate();
 	}
 	
 	public float efficieny(){
@@ -100,14 +87,6 @@ public class Surgeon : Person {
 		RemoveFromSurgery();
 
 		currentBed = order.objectAction as Bed;
-		/*
-		OrBed orBed = currentBed as OrBed;
-		if (orBed != null) {
-			if (orBed.surgeon != null) {
-				return;
-			}
-			orBed.surgeon = this;
-		}*/
 
 		Vector3 pos = transform.position;
 		Vector3 objectPos = order.objectAction.transform.position;
@@ -120,8 +99,9 @@ public class Surgeon : Person {
 		return true;
 	}
 	
-	public bool OperationProbability(Nurse Laila, Patient Bob) {
+	public bool OperationProbability(Patient Bob) {
         int random = Random.Range(0, 100);
+        Debug.Log(random);
         
         if (random < Patient.patOutRates[Bob.sickness, 0]) {
             //return Patient.patSurgRates[Bob.sickness, 0];
@@ -133,31 +113,86 @@ public class Surgeon : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
-        isOperating = true;
 		transform.position = bed.GetPrimaryPosition();
         operationTimer = 5;
-        while (patientInBed) {
-            if (OperationProbability(currentBed.nurse, currentBed.patient)) {
-                currentBed.nurse.exp -= 5;
-                currentBed.patient.Kill();
-            } else {
-                currentBed.nurse.exp += 3;
-                exp += 10;
-            }
-            isOperating = false;
+        //if (OperationProbability(currentBed.patient)) {
+        //    currentBed.nurse.exp -= 5;
+        //    currentBed.patient.Kill();
+        //} else {
+        //    currentBed.nurse.exp += 3;
+        //    exp += 10;
+        //}
+	}
+
+    private void SurgeryUpdate() {
+        bool patInBed = false;
+
+        if (currentBed != null && currentBed.patient != null) {
+            patInBed = currentBed.patient.IsInBed;
+        } else {
+            patientInBedLastFrame = false;
+            return;
         }
-        //while (operationTimer <= 0) { Debug.Log("Waiting to fisish surgery."); }
 
-        //basePercent = OperationProbability(currentBed.nurse, currentBed.patient);
+        if (patInBed) {
+            // Start the surgery
+            if (!patientInBedLastFrame) {
+                operationTimer = OPERATIONMAXTIME;
+                surgeryPerformance = 0f;
+            }
 
-        /*
-        if (OperationProbability(currentBed.nurse, currentBed.patient)) {
-            currentBed.nurse.exp -= 5;
+            operationTimer -= Time.deltaTime;
+
+            if (operationTimer > 0f) {
+                // Find the delta performance step
+                float deltaPerf = efficieny();
+                if (currentBed.nurse != null) {
+                    deltaPerf += currentBed.nurse.efficieny();
+                }
+                deltaPerf *= Time.deltaTime / OPERATIONMAXTIME;
+                surgeryPerformance += deltaPerf;
+            } else {
+                FinalizeOperation();
+            }
+        } else {
+            // Scratch dick until patient arrives
+        }
+
+
+
+        patientInBedLastFrame = patInBed;
+    }
+
+    protected float XpCoefficient()
+    {
+        return (1f + (1f - (1f / (Mathf.Sqrt((float)exp) / 1000f) + 1)));
+    }
+
+    private void FinalizeOperation() {
+        float finalRate = 1; // surgeryPerformance;
+
+        float baseRate = (float)Patient.patSurgRates[currentBed.patient.sickness, 0] / 100f;
+        float healthRate = currentBed.patient.health / 100f;
+
+        finalRate *= baseRate;
+        finalRate *= healthRate;
+
+        finalRate *= XpCoefficient();
+
+        if (currentBed.nurse != null) {
+            finalRate *= currentBed.nurse.XpCoefficient();
+        }
+
+        float dice = Random.Range(0f, 99f);
+        Debug.Log("baseRate: " + baseRate);
+        Debug.Log("healthRate: " + healthRate);
+        Debug.Log("XpCoefficient: " + XpCoefficient());
+        Debug.Log("Nurse ExPerience" + currentBed.nurse.XpCoefficient());
+        Debug.Log("Dice :" + dice + " < " + finalRate * 100f + " = DEATH!");
+        if (dice < (finalRate * 100f)) {
             currentBed.patient.Kill();
         } else {
-            currentBed.nurse.exp += 3;
-            exp += 10;
+            currentBed.patient.SendHome();
         }
-        */
-	}
+    }
 }

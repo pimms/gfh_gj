@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Person : Clickable {
 	public float health = 100f;
 
+	protected Vector3 lastPosition;
+
 	// Used when the person has reached an eventual bed
 	protected bool shouldGoToBed = false;
 	protected Bed currentBed;
@@ -76,6 +78,8 @@ public class Person : Clickable {
 	}
 
 	protected virtual void Update() {
+		UpdateRotation();
+
 		if (currentPath != null && currentPath.Count != 0) {
 			FollowPath(currentPath);
 		} else if (shouldGoToCustomDest) {
@@ -134,5 +138,19 @@ public class Person : Clickable {
 			currentBed.RemovePerson(this);
 			currentBed = null;
 		}
+	}
+
+	protected void UpdateRotation() {
+		// NOPE
+		return;
+
+		Vector3 position = transform.position;
+		Vector3 diff = lastPosition - position;
+		diff.y = 0f;
+
+		float angle = Vector3.Angle(new Vector3(0f, 0f, 1f), diff);
+		transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+		lastPosition = position;
 	}
 }

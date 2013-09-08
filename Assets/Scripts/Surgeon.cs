@@ -11,6 +11,7 @@ public class Surgeon : Person {
     const int OPERATIONMAXTIME = 5;
     float startTime;
     float xpCoeff;
+    protected double operationTimer;
 
 	protected override void Start () {
 		base.Start();
@@ -23,9 +24,7 @@ public class Surgeon : Person {
 		pos.y = 1f;
 		transform.position = pos;
 
-        if (currentBed) { patientInBed = currentBed.patient.IsInBed; }
-
-        startTime = Time.realtimeSinceStartup;
+        operationTimer -= Time.deltaTime;
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -70,13 +69,12 @@ public class Surgeon : Person {
 
 	protected override void OnBedReached(Bed bed) {
 		transform.position = bed.GetPrimaryPosition();
-        float operationEndTime = startTime + 5;
+        operationTimer = 5;
 
-        //OrBed orBed = bed as OrBed;
-        //if (orBed == null) return;
         Debug.Log("Get in that bed bitch! " + currentBed.patient.IsInBed);
         Debug.Log("NURSE: " + currentBed.nurse.exp);
         Debug.Log("Patient: " + currentBed.patient.health);
+        while (operationTimer <= 0) { Debug.Log("Waiting to fisish surgery."), }
         if (OperationProbability(currentBed.nurse, currentBed.patient)) {
             currentBed.nurse.exp -= 5;
             currentBed.patient.Kill();

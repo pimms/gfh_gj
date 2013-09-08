@@ -12,6 +12,10 @@ public class Surgeon : Person {
 	
 	void Update () {
 		base.Update();
+
+		Vector3 pos = transform.position;
+		pos.y = 1f;
+		transform.position = pos;
 	}
 
 	public override void OnMouseClick(int mouseButton, InputOrder inOrder) {
@@ -54,9 +58,7 @@ public class Surgeon : Person {
 	}
 
 	protected override void OnBedReached(Bed bed) {
-		float oldY = transform.position.y;
 		transform.position = bed.GetPrimaryPosition();
-		transform.position += new Vector3(0f, oldY, 0f);
 
         OrBed orBed = bed as OrBed;
         if (orBed == null) return;
